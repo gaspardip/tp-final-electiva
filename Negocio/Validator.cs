@@ -25,6 +25,11 @@ namespace Business
             return codigo != codigoEditado;
         }
 
+        public static bool DominioEditado(string dominio, string dominioEditado)
+        {
+            return dominio != dominioEditado;
+        }
+
         public static decimal ValidateImporte(string value)
         {
             if (string.IsNullOrWhiteSpace(value))

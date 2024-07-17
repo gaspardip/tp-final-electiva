@@ -102,14 +102,16 @@
             // verListadoToolStripMenuItem
             // 
             this.verListadoToolStripMenuItem.Name = "verListadoToolStripMenuItem";
-            this.verListadoToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.verListadoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.verListadoToolStripMenuItem.Text = "Ver listado";
+            this.verListadoToolStripMenuItem.Click += new System.EventHandler(this.verListadoToolStripMenuItem_Click);
             // 
             // nuevoToolStripMenuItem
             // 
             this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
-            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.nuevoToolStripMenuItem.Text = "Nuevo";
+            this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
             // 
             // SistemaForm
             // 

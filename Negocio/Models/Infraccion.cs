@@ -13,13 +13,9 @@ namespace Business.Models
         }
 
         // Constructor que utilizo para editar una infracción, ya que necesito saber si el codigo fue editado o no para hacer la validación correspondiente en la base de datos.
-        public Infraccion(int codigo, bool codEditado, string descripcion, decimal importe, TipoInfraccion tipo)
+        public Infraccion(int codigo, bool codEditado, string descripcion, decimal importe, TipoInfraccion tipo) : this(codigo, descripcion, importe, tipo)
         {
-            Codigo = codigo;
             CodEditado = codEditado;
-            Descripcion = descripcion;
-            Importe = importe;
-            Tipo = tipo;
         }
 
         public bool CodEditado { get; set; }
