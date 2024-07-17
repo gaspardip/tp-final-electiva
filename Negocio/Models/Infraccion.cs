@@ -4,15 +4,26 @@ namespace Business.Models
 {
     public class Infraccion
     {
-        public Infraccion(int id, string descripcion, decimal importe, TipoInfraccion tipo)
+        public Infraccion(int codigo, string descripcion, decimal importe, TipoInfraccion tipo)
         {
-            ID = id;
+            Codigo = codigo;
             Descripcion = descripcion;
             Importe = importe;
             Tipo = tipo;
         }
 
-        public int ID { get; set; }
+        // Constructor que utilizo para editar una infracción, ya que necesito saber si el codigo fue editado o no para hacer la validación correspondiente en la base de datos.
+        public Infraccion(int codigo, bool codEditado, string descripcion, decimal importe, TipoInfraccion tipo)
+        {
+            Codigo = codigo;
+            CodEditado = codEditado;
+            Descripcion = descripcion;
+            Importe = importe;
+            Tipo = tipo;
+        }
+
+        public bool CodEditado { get; set; }
+        public int Codigo { get; set; }
         public string Descripcion { get; set; }
         public decimal Importe { get; set; }
         public TipoInfraccion Tipo { get; set; }
