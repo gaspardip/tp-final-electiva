@@ -40,9 +40,9 @@ namespace DAL
             Delete("Codigo = ?", parameters);
         }
 
-        public void Update(int codigo, bool codEditado, string descripcion, decimal importe, int tipo)
+        public void Update(int codigo, int codViejo, bool codEditado, string descripcion, decimal importe, int tipo)
         {
-            if(codEditado == true)
+            if (codEditado == true)
             {
                 if (Exists(new OleDbParameter("Codigo", codigo)))
                 {
@@ -52,6 +52,7 @@ namespace DAL
 
             var setParameters = new OleDbParameter[]
             {
+                new OleDbParameter("Codigo", codigo),
                 new OleDbParameter("Descripcion", descripcion),
                 new OleDbParameter("Importe", importe),
                 new OleDbParameter("Tipo", tipo)
@@ -61,7 +62,7 @@ namespace DAL
 
             var whereParameters = new OleDbParameter[]
             {
-                new OleDbParameter("Codigo", codigo)
+                new OleDbParameter("Codigo", codViejo)
             };
 
             Update(setParameters, whereClause, whereParameters);

@@ -38,7 +38,7 @@ namespace DAL
             Delete("Dominio = ?", parameters);
         }
 
-        public void Update(string dominio, bool domEditado, string propietario)
+        public void Update(string dominio, string domViejo, bool domEditado, string propietario)
         {
             if (domEditado == true)
             {
@@ -57,7 +57,7 @@ namespace DAL
 
             var whereParameters = new OleDbParameter[]
             {
-                new OleDbParameter("Dominio", dominio)
+                new OleDbParameter("Dominio", domViejo)
             };
 
             Update(setParameters, whereClause, whereParameters);

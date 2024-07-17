@@ -18,7 +18,7 @@ namespace Business.BLL
 
         public void Editar(Vehiculo vehiculo)
         {
-            _vehiculos.Update(vehiculo.Dominio, vehiculo.DomEditado, vehiculo.Propietario);
+            _vehiculos.Update(vehiculo.Dominio, vehiculo.DomViejo, vehiculo.DomEditado, vehiculo.Propietario);
         }
 
         public void Eliminar(string dominio)

@@ -18,7 +18,7 @@ namespace Business.BLL
 
         public void Editar(Infraccion infraccion)
         {
-            _infracciones.Update(infraccion.Codigo, infraccion.CodEditado, infraccion.Descripcion, infraccion.Importe, (int)infraccion.Tipo);
+            _infracciones.Update(infraccion.Codigo, infraccion.CodViejo, infraccion.CodEditado, infraccion.Descripcion, infraccion.Importe, (int)infraccion.Tipo);
         }
 
         public void Eliminar(int codigo)

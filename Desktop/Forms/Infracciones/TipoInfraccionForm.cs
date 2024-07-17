@@ -70,7 +70,7 @@ namespace Desktop.Forms
                 }
                 else
                 {
-                    _sistemaInfracciones.EditarInfraccion(cod, codEditado, Descripcion, importe, Tipo);
+                    _sistemaInfracciones.EditarInfraccion(cod, _codAValidar, codEditado, Descripcion, importe, Tipo);
 
                     MessageBox.Show("Infracción editada correctamente", "Infracción Editada", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
