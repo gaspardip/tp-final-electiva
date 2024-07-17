@@ -7,12 +7,12 @@ namespace Business.Models
     public class SistemaInfracciones
     {
         private readonly InfraccionesBLL _infracciones = new InfraccionesBLL();
-        //private readonly VehiculosBLL _vehiculos = new VehiculosBLL();
+        private readonly VehiculosBLL _vehiculos = new VehiculosBLL();
         //private readonly RegistrosBLL _registros = new RegistrosBLL();
 
 
         public List<Infraccion> Infracciones => _infracciones.GetAllInfracciones();
-        public List<Vehiculo> Vehiculos { get; set; } = new List<Vehiculo>();
+        public List<Vehiculo> Vehiculos => _vehiculos.GetAllVehiculos();
         public List<RegistroInfraccion> Registros { get; set; } = new List<RegistroInfraccion>();
 
         public void CrearInfraccion(int codigo, string descripcion, decimal importe, TipoInfraccion tipo)
@@ -30,9 +30,19 @@ namespace Business.Models
             _infracciones.Eliminar(codigo);
         }
 
-        public void CrearVehiculo(string patente, string marca, string modelo, string anio)
+        public void CrearVehiculo(string dominio, string propietario)
         {
-            //_vehiculos.CreateVehiculo(patente, marca, modelo, anio);
+            _vehiculos.Agregar(new Vehiculo(dominio, propietario));
+        }
+
+        public void EditarVehiculo(string dominio, bool domEditado, string propietario)
+        {
+            _vehiculos.Editar(new Vehiculo(dominio, propietario, domEditado));
+        }
+
+        public void DarBajaVehiculo(string dominio)
+        {
+            _vehiculos.Eliminar(dominio);
         }
     }
 }

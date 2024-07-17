@@ -41,5 +41,19 @@ namespace Desktop.Forms
 
             form.ShowDialog();
         }
+
+        private void verListadoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new VehiculosForm(_sistema);
+
+            form.ShowDialog();
+        }
+
+        private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new NuevoVehiculoForm(_sistema);
+
+            form.ShowDialog();
+        }
     }
 }
