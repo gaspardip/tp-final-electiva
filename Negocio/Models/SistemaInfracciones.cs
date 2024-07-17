@@ -20,9 +20,9 @@ namespace Business.Models
             _infracciones.Agregar(new Infraccion(codigo, descripcion, importe, tipo));
         }
 
-        public void EditarInfraccion(int codigo, bool codEditado, string descripcion, decimal importe, TipoInfraccion tipo)
+        public void EditarInfraccion(int codigo, int codViejo, bool codEditado, string descripcion, decimal importe, TipoInfraccion tipo)
         {
-            _infracciones.Editar(new Infraccion(codigo, codEditado, descripcion, importe, tipo));
+            _infracciones.Editar(new Infraccion(codigo, codViejo, codEditado, descripcion, importe, tipo));
         }
 
         public void DarBajaInfraccion(int codigo)
@@ -35,9 +35,9 @@ namespace Business.Models
             _vehiculos.Agregar(new Vehiculo(dominio, propietario));
         }
 
-        public void EditarVehiculo(string dominio, bool domEditado, string propietario)
+        public void EditarVehiculo(string dominio, string domViejo, bool domEditado, string propietario)
         {
-            _vehiculos.Editar(new Vehiculo(dominio, propietario, domEditado));
+            _vehiculos.Editar(new Vehiculo(dominio, domViejo, propietario, domEditado));
         }
 
         public void DarBajaVehiculo(string dominio)

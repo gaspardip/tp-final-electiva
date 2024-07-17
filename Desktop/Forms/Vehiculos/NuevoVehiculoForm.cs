@@ -59,7 +59,7 @@ namespace Desktop.Forms
                 }
                 else
                 {
-                    _sistemaInfracciones.EditarVehiculo(Dominio, codEditado, Propietario);
+                    _sistemaInfracciones.EditarVehiculo(Dominio, _domAValidar, codEditado, Propietario);
 
                     MessageBox.Show("Vehículo editado correctamente", "Vehículo Editado", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
