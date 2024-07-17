@@ -104,12 +104,12 @@ namespace DAL
             return result > 0;
         }
 
-        protected bool ExistsOtherThan(int id, params OleDbParameter[] parameters)
+        protected bool ExistsOtherThan(OleDbParameter id, params OleDbParameter[] parameters)
         {
             var query =
-                $"SELECT COUNT(*) FROM {TableName} WHERE {string.Join(" AND ", parameters.Select(p => $"{p.ParameterName} = ?"))} AND ID <> ?";
+                $"SELECT COUNT(*) FROM {TableName} WHERE {string.Join(" AND ", parameters.Select(p => $"{p.ParameterName} = ?"))} AND {id.ParameterName} <> ?";
 
-            var allParameters = parameters.Concat(new[] { new OleDbParameter("ID", id) }).ToArray();
+            var allParameters = parameters.Concat(new[] { id }).ToArray();
             var result = (int)ExecuteScalar(query, allParameters);
 
             return result > 0;
@@ -136,6 +136,11 @@ namespace DAL
             return GetBy("ID = ?", new OleDbParameter("ID", id));
         }
 
+        public DataTable GetByCodigo(int codigo)
+        {
+            return GetBy("Codigo = ?", new OleDbParameter("Codigo", codigo));
+        }
+
         protected bool Insert(params OleDbParameter[] parameters)
         {
             var query =
@@ -157,7 +162,7 @@ namespace DAL
 
         protected bool Delete(string whereClause, params OleDbParameter[] parameters)
         {
-            var query = $"UPDATE {TableName} SET Activo = FALSE WHERE {whereClause}";
+            var query = $"DELETE FROM {TableName} WHERE {whereClause}";
 
             return ExecuteNonQuery(query, parameters) > 0;
         }

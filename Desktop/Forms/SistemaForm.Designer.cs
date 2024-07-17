@@ -65,28 +65,28 @@
             // listadoToolStripMenuItem
             // 
             this.listadoToolStripMenuItem.Name = "listadoToolStripMenuItem";
-            this.listadoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.listadoToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.listadoToolStripMenuItem.Text = "Ver tipos";
             this.listadoToolStripMenuItem.Click += new System.EventHandler(this.listadoToolStripMenuItem_Click);
             // 
             // nuevoTipoToolStripMenuItem
             // 
             this.nuevoTipoToolStripMenuItem.Name = "nuevoTipoToolStripMenuItem";
-            this.nuevoTipoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.nuevoTipoToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.nuevoTipoToolStripMenuItem.Text = "Nuevo tipo";
             this.nuevoTipoToolStripMenuItem.Click += new System.EventHandler(this.nuevoTipoToolStripMenuItem_Click);
             // 
             // verListadoToolStripMenuItem1
             // 
             this.verListadoToolStripMenuItem1.Name = "verListadoToolStripMenuItem1";
-            this.verListadoToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.verListadoToolStripMenuItem1.Size = new System.Drawing.Size(138, 22);
             this.verListadoToolStripMenuItem1.Text = "Ver registros";
             this.verListadoToolStripMenuItem1.Click += new System.EventHandler(this.verListadoToolStripMenuItem1_Click);
             // 
             // nuevaToolStripMenuItem
             // 
             this.nuevaToolStripMenuItem.Name = "nuevaToolStripMenuItem";
-            this.nuevaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.nuevaToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.nuevaToolStripMenuItem.Text = "Registrar";
             this.nuevaToolStripMenuItem.Click += new System.EventHandler(this.nuevaToolStripMenuItem_Click);
             // 
@@ -119,7 +119,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "SistemaForm";
-            this.Text = "Form1";
+            this.Text = "Sistema de Infracciones";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

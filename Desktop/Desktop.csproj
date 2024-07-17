@@ -117,6 +117,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controls\FilterableDataGridView.resx">
+      <DependentUpon>FilterableDataGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Infracciones\TipoInfraccionForm.resx">
+      <DependentUpon>TipoInfraccionForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SistemaForm.resx">
       <DependentUpon>SistemaForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -23,7 +23,7 @@ namespace Desktop.Forms
 
         private void nuevoTipoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = new TipoInfraccionForm();
+            var form = new TipoInfraccionForm(_sistema);
 
             form.ShowDialog();
         }
