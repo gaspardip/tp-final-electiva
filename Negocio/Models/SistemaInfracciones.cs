@@ -9,12 +9,13 @@ namespace Business.Models
     {
         private readonly InfraccionesBLL _infracciones = new InfraccionesBLL();
         private readonly VehiculosBLL _vehiculos = new VehiculosBLL();
-        //private readonly RegistrosBLL _registros = new RegistrosBLL();
+        private readonly RegistrosInfraccionesBLL _registros = new RegistrosInfraccionesBLL();
 
 
         public List<Infraccion> Infracciones => _infracciones.GetAllInfracciones();
         public List<Vehiculo> Vehiculos => _vehiculos.GetAllVehiculos();
-        public List<RegistroInfraccion> Registros { get; set; } = new List<RegistroInfraccion>();
+        //public List<Vehiculo> Vehiculos => _vehiculos.GetVehiculosConInfracciones();
+        //public List<RegistroInfraccion> Registros => _registros.GetRegistrosConImporte();
 
         public void CrearInfraccion(int codigo, string descripcion, decimal importe, TipoInfraccion tipo)
         {
@@ -46,9 +47,9 @@ namespace Business.Models
             _vehiculos.Eliminar(dominio);
         }
 
-        public void CrearRegistro(int infraccion, string vehiculo, DateTime fs, DateTime fv)
+        public void CrearRegistro(int infCod, string vehDom, DateTime fs, DateTime fv)
         {
-            //_registros.Agregar(new RegistroInfraccion(infraccion, vehiculo, fs, fv));
+            _registros.Agregar(new RegistroInfraccion(infCod, vehDom, fs, fv));
         }
     }
 }

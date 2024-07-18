@@ -26,6 +26,19 @@ namespace Business.BLL
             _vehiculos.Delete(dominio);
         }
 
+        //public List<Vehiculo> GetVehiculosConInfracciones()
+        //{
+        //    var dataTable = _vehiculos.GetVehiculosConInfracciones();
+
+        //    return (from DataRow row in dataTable.Rows
+        //                               select new Vehiculo(
+        //                                                          row.Field<int>("ID"),
+        //                                                                                 row.Field<string>("Dominio"),
+        //                                                                                                        row.Field<string>("Propietario")
+        //                                                                                                                           ))
+        //        .ToList();
+        //}
+
         public List<Vehiculo> GetAllVehiculos()
         {
             var dataTable = _vehiculos.GetAllVehiculos();

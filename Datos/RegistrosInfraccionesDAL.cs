@@ -13,15 +13,20 @@ namespace DAL
 
         public void Insert(int infCod, string vehDom, DateTime fs, DateTime fv)
         {
-            if (Exists(new OleDbParameter("Infraccion", infCod)) && Exists(new OleDbParameter("Dominio", vehDom)))
+            if(!Exists(new OleDbParameter("InfraccionCod", infCod)))
             {
-                throw new DuplicateNameException("Ya existe una infracción para ese vehículo");
+                throw new DuplicateNameException("No existe el código de infracción ingresado");
+            }
+            if(!Exists(new OleDbParameter("VehiculoDom", vehDom)))
+            {
+                throw new DuplicateNameException("No existe el dominio ingresado");
             }
 
-            Insert(new OleDbParameter("Infraccion", infCod),
-                   new OleDbParameter("Dominio", vehDom),
+            Insert(new OleDbParameter("InfraccionCod", infCod),
+                   new OleDbParameter("VehiculoDom", vehDom),
                    new OleDbParameter("FechaSuceso", fs),
                    new OleDbParameter("FechaVencimiento", fv));
         }
+
     }
 }
