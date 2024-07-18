@@ -123,11 +123,17 @@
     <EmbeddedResource Include="Forms\Infracciones\TipoInfraccionForm.resx">
       <DependentUpon>TipoInfraccionForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Infracciones\TiposInfraccionesForm.resx">
+      <DependentUpon>TiposInfraccionesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SistemaForm.resx">
       <DependentUpon>SistemaForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Vehiculos\NuevoVehiculoForm.resx">
       <DependentUpon>NuevoVehiculoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Vehiculos\VehiculosForm.resx">
+      <DependentUpon>VehiculosForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

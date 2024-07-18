@@ -1,5 +1,4 @@
-﻿using Business.Enums;
-using System;
+﻿using System;
 
 namespace Business
 {
@@ -18,16 +17,6 @@ namespace Business
             }
 
             return cod;
-        }
-
-        public static bool CodigoEditado (int codigo, int codigoEditado)
-        {
-            return codigo != codigoEditado;
-        }
-
-        public static bool DominioEditado(string dominio, string dominioEditado)
-        {
-            return dominio != dominioEditado;
         }
 
         public static decimal ValidateImporte(string value)

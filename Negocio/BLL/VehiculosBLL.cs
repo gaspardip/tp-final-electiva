@@ -18,7 +18,7 @@ namespace Business.BLL
 
         public void Editar(Vehiculo vehiculo)
         {
-            _vehiculos.Update(vehiculo.Dominio, vehiculo.DomViejo, vehiculo.DomEditado, vehiculo.Propietario);
+            _vehiculos.Update(vehiculo.ID, vehiculo.Dominio, vehiculo.Propietario);
         }
 
         public void Eliminar(string dominio)
@@ -31,7 +31,9 @@ namespace Business.BLL
             var dataTable = _vehiculos.GetAllVehiculos();
 
             return (from DataRow row in dataTable.Rows
-                    select new Vehiculo(row.Field<string>("Dominio"),
+                    select new Vehiculo(
+                        row.Field<int>("ID"),
+                        row.Field<string>("Dominio"),
                         row.Field<string>("Propietario")
                     ))
                 .ToList();

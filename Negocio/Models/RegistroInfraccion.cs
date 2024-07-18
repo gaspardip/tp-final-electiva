@@ -2,14 +2,14 @@
 
 namespace Business.Models
 {
-    public abstract class RegistroInfraccion
+    public class RegistroInfraccion
     {
         private Infraccion infraccion;
         private Vehiculo vehiculo;
 
         protected RegistroInfraccion(int infraccion, int vehiculo, DateTime fs, DateTime fv)
         {
-            InfraccionID = infraccion;
+            InfraccionCodigo = infraccion;
             VehiculoDominio = vehiculo;
             Fecha = fs;
             FechaVencimiento = fv;
@@ -17,7 +17,7 @@ namespace Business.Models
 
         public int ID { get; set; }
         public int VehiculoDominio { get; set; }
-        public int InfraccionID { get; set; }
+        public int InfraccionCodigo { get; set; }
         public DateTime Fecha { get; set; }
         public DateTime FechaVencimiento { get; set; }
         public bool Pagada { get; set; }
@@ -29,6 +29,9 @@ namespace Business.Models
             Pagada = true;
         }
 
-        public abstract decimal CalcularDescuento(DateTime fechaPago);
+        public virtual decimal CalcularDescuento(DateTime fechaPago)
+        {
+            return 0;
+        }
     }
 }

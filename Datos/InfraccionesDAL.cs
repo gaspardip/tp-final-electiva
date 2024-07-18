@@ -17,7 +17,6 @@ namespace DAL
 
         public void Insert(int codigo, string descripcion, decimal importe, int tipo)
         {
-        
 
             if (Exists(new OleDbParameter("Codigo", codigo)))
             {
@@ -40,14 +39,11 @@ namespace DAL
             Delete("Codigo = ?", parameters);
         }
 
-        public void Update(int codigo, int codViejo, bool codEditado, string descripcion, decimal importe, int tipo)
+        public void Update(int id, int codigo, string descripcion, decimal importe, int tipo)
         {
-            if (codEditado == true)
+            if (Exists(new OleDbParameter("Codigo", codigo)))
             {
-                if (Exists(new OleDbParameter("Codigo", codigo)))
-                {
-                    throw new DuplicateNameException("Ya existe una infracción con ese código");
-                }
+                throw new DuplicateNameException("Ya existe una infracción con ese código");
             }
 
             var setParameters = new OleDbParameter[]
@@ -58,11 +54,11 @@ namespace DAL
                 new OleDbParameter("Tipo", tipo)
             };
 
-            var whereClause = "Codigo = ?";
+            var whereClause = "ID = ?";
 
             var whereParameters = new OleDbParameter[]
             {
-                new OleDbParameter("Codigo", codViejo)
+                new OleDbParameter("ID", id)
             };
 
             Update(setParameters, whereClause, whereParameters);

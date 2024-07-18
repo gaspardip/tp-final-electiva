@@ -1,19 +1,15 @@
 ﻿using Business.Models;
 using System;
 using Desktop.Enums;
-using Business;
-using Business.Enums;
 using System.Windows.Forms;
-using System.Net;
-using System.Security.Cryptography;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 
 namespace Desktop.Forms
 {
     public partial class NuevoVehiculoForm : Form
     {
         private readonly SistemaInfracciones _sistemaInfracciones;
-        private readonly string _domAValidar;
+        private readonly int _id;
 
 
         public NuevoVehiculoForm(SistemaInfracciones si, Vehiculo veh = null)
@@ -29,8 +25,8 @@ namespace Desktop.Forms
 
             Text = "Editar Vehículo";
 
+            _id = veh.ID;
             textBoxDom.Text = veh.Dominio.ToString();
-            _domAValidar = veh.Dominio.ToString(); ;
             textBoxProp.Text = veh.Propietario.ToString();
 
         }
@@ -48,7 +44,6 @@ namespace Desktop.Forms
                     throw new Exception("Debe completar todos los campos");
                 }
 
-                var codEditado = Validator.DominioEditado(_domAValidar, Dominio);
 
                 if (CurrentMode == FormMode.Create)
                 {
@@ -59,7 +54,7 @@ namespace Desktop.Forms
                 }
                 else
                 {
-                    _sistemaInfracciones.EditarVehiculo(Dominio, _domAValidar, codEditado, Propietario);
+                    _sistemaInfracciones.EditarVehiculo(_id, Dominio, Propietario);
 
                     MessageBox.Show("Vehículo editado correctamente", "Vehículo Editado", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);

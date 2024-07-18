@@ -18,7 +18,7 @@ namespace Business.BLL
 
         public void Editar(Infraccion infraccion)
         {
-            _infracciones.Update(infraccion.Codigo, infraccion.CodViejo, infraccion.CodEditado, infraccion.Descripcion, infraccion.Importe, (int)infraccion.Tipo);
+            _infracciones.Update(infraccion.ID, infraccion.Codigo, infraccion.Descripcion, infraccion.Importe, (int)infraccion.Tipo);
         }
 
         public void Eliminar(int codigo)
@@ -31,7 +31,9 @@ namespace Business.BLL
             var dataTable = _infracciones.GetAllInfracciones();
 
             return (from DataRow row in dataTable.Rows
-                    select new Infraccion(row.Field<int>("Codigo"),
+                    select new Infraccion(
+                        row.Field<int>("ID"),
+                        row.Field<int>("Codigo"),
                         row.Field<string>("Descripcion"),
                         row.Field<decimal>("Importe"),
                         (TipoInfraccion)row.Field<int>("Tipo")
