@@ -38,26 +38,24 @@ namespace DAL
             Delete("Dominio = ?", parameters);
         }
 
-        public void Update(string dominio, string domViejo, bool domEditado, string propietario)
+        public void Update(int id, string dominio, string propietario)
         {
-            if (domEditado == true)
+            if (Exists(new OleDbParameter("Dominio", dominio)))
             {
-                if (Exists(new OleDbParameter("Dominio", dominio)))
-                {
-                    throw new DuplicateNameException("Ya existe un vehículo con ese dominio");
-                }
+                throw new DuplicateNameException("Ya existe un vehículo con ese dominio");
             }
 
             var setParameters = new OleDbParameter[]
             {
+                new OleDbParameter("Dominio", dominio),
                 new OleDbParameter("Propietario", propietario)
             };
 
-            var whereClause = "Dominio = ?";
+            var whereClause = "ID = ?";
 
             var whereParameters = new OleDbParameter[]
             {
-                new OleDbParameter("Dominio", domViejo)
+                new OleDbParameter("ID", id)
             };
 
             Update(setParameters, whereClause, whereParameters);

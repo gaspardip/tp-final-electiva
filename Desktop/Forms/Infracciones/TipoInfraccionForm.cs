@@ -4,16 +4,13 @@ using Desktop.Enums;
 using Business;
 using Business.Enums;
 using System.Windows.Forms;
-using System.Net;
-using System.Security.Cryptography;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Desktop.Forms
 {
     public partial class TipoInfraccionForm : Form
     {
         private readonly SistemaInfracciones _sistemaInfracciones;
-        private readonly int _codAValidar;
+        private readonly int _id;
 
 
         public TipoInfraccionForm(SistemaInfracciones si, Infraccion inf = null)
@@ -30,8 +27,8 @@ namespace Desktop.Forms
 
             Text = "Editar Tipo de Infracción";
 
+            _id = inf.ID;
             textBoxCod.Text = inf.Codigo.ToString();
-            _codAValidar = inf.Codigo;
             textBoxDesc.Text = inf.Descripcion.ToString();
             textBoxAmount.Text = inf.Importe.ToString();
             comboBoxTipo.Text = inf.Tipo.ToString();
@@ -58,8 +55,6 @@ namespace Desktop.Forms
 
                 var importe = Validator.ValidateImporte(Importe);
 
-                var codEditado = Validator.CodigoEditado(_codAValidar, cod);
-
 
                 if (CurrentMode == FormMode.Create)
                 {
@@ -70,7 +65,7 @@ namespace Desktop.Forms
                 }
                 else
                 {
-                    _sistemaInfracciones.EditarInfraccion(cod, _codAValidar, codEditado, Descripcion, importe, Tipo);
+                    _sistemaInfracciones.EditarInfraccion(_id, cod, Descripcion, importe, Tipo);
 
                     MessageBox.Show("Infracción editada correctamente", "Infracción Editada", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
