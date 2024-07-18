@@ -1,20 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Business.Models;
+using Desktop.Controls;
 
 namespace Desktop.Forms.Infracciones
 {
     public partial class InfraccionesForm : Form
     {
-        public InfraccionesForm()
+        private readonly SistemaInfracciones _sistema;
+        private FilterableDataGridView<RegistroInfraccion> _filterableDataGridView;
+
+        public InfraccionesForm(SistemaInfracciones sistema)
         {
+            _sistema = sistema;
+
             InitializeComponent();
+            CenterToParent();
+            SetupCustomDataGridView();
+        }
+
+        private void SetupCustomDataGridView()
+        {
+            _filterableDataGridView = new FilterableDataGridView<RegistroInfraccion>
+            {
+                Dock = DockStyle.Fill,
+                //DataFetcher = () => _sistema.Registros,
+                DisplayProperties = new List<string>
+                    { "ID", "InfraccionCod", "VehiculoDom", "FechaSuceso", "FechaVencimiento", "Importe", "Pagada" }
+            };
+
+
+            Controls.Add(_filterableDataGridView);
         }
     }
 }

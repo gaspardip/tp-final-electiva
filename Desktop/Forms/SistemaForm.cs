@@ -30,14 +30,14 @@ namespace Desktop.Forms
 
         private void verListadoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            var form = new InfraccionesForm();
+            var form = new InfraccionesForm(_sistema);
 
             form.ShowDialog();
         }
 
         private void nuevaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = new RegistrarInfraccionForm();
+            var form = new RegistrarInfraccionForm(_sistema);
 
             form.ShowDialog();
         }

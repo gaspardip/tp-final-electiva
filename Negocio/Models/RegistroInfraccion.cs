@@ -4,21 +4,19 @@ namespace Business.Models
 {
     public class RegistroInfraccion
     {
-        private Infraccion infraccion;
-        private Vehiculo vehiculo;
 
-        protected RegistroInfraccion(int infraccion, int vehiculo, DateTime fs, DateTime fv)
+        public RegistroInfraccion(int infCod, string vehDom, DateTime fs, DateTime fv)
         {
-            InfraccionCodigo = infraccion;
-            VehiculoDominio = vehiculo;
-            Fecha = fs;
+            InfraccionCod = infCod;
+            VehiculoDom = vehDom;
+            FechaSuceso = fs;
             FechaVencimiento = fv;
         }
 
         public int ID { get; set; }
-        public int VehiculoDominio { get; set; }
-        public int InfraccionCodigo { get; set; }
-        public DateTime Fecha { get; set; }
+        public int InfraccionCod { get; set; }
+        public string VehiculoDom { get; set; }
+        public DateTime FechaSuceso { get; set; }
         public DateTime FechaVencimiento { get; set; }
         public bool Pagada { get; set; }
 
