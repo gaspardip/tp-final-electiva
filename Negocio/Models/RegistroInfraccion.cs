@@ -13,6 +13,11 @@ namespace Business.Models
             FechaVencimiento = fv;
         }
 
+        public RegistroInfraccion(int id, int infCod, string vehDom, DateTime fs, DateTime fv) : this(infCod, vehDom, fs, fv)
+        {
+            ID = id;
+        }
+
         public int ID { get; set; }
         public int InfraccionCod { get; set; }
         public string VehiculoDom { get; set; }

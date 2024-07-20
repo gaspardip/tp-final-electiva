@@ -80,28 +80,28 @@
             this.textBoxCod.Location = new System.Drawing.Point(89, 40);
             this.textBoxCod.Name = "textBoxCod";
             this.textBoxCod.Size = new System.Drawing.Size(163, 20);
-            this.textBoxCod.TabIndex = 4;
+            this.textBoxCod.TabIndex = 0;
             // 
             // textBoxDesc
             // 
             this.textBoxDesc.Location = new System.Drawing.Point(89, 87);
             this.textBoxDesc.Name = "textBoxDesc";
             this.textBoxDesc.Size = new System.Drawing.Size(163, 20);
-            this.textBoxDesc.TabIndex = 5;
+            this.textBoxDesc.TabIndex = 1;
             // 
             // textBoxAmount
             // 
             this.textBoxAmount.Location = new System.Drawing.Point(91, 131);
             this.textBoxAmount.Name = "textBoxAmount";
             this.textBoxAmount.Size = new System.Drawing.Size(161, 20);
-            this.textBoxAmount.TabIndex = 6;
+            this.textBoxAmount.TabIndex = 2;
             // 
             // buttonConf
             // 
             this.buttonConf.Location = new System.Drawing.Point(182, 240);
             this.buttonConf.Name = "buttonConf";
             this.buttonConf.Size = new System.Drawing.Size(92, 21);
-            this.buttonConf.TabIndex = 8;
+            this.buttonConf.TabIndex = 4;
             this.buttonConf.Text = "Confirmar";
             this.buttonConf.UseVisualStyleBackColor = true;
             this.buttonConf.Click += new System.EventHandler(this.buttonConf_Click);
@@ -112,7 +112,7 @@
             this.comboBoxTipo.Location = new System.Drawing.Point(91, 173);
             this.comboBoxTipo.Name = "comboBoxTipo";
             this.comboBoxTipo.Size = new System.Drawing.Size(161, 21);
-            this.comboBoxTipo.TabIndex = 9;
+            this.comboBoxTipo.TabIndex = 3;
             // 
             // TipoInfraccionForm
             // 

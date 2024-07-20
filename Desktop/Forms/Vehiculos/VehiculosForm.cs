@@ -27,21 +27,12 @@ namespace Desktop.Forms
                 Dock = DockStyle.Fill,
                 DataFetcher = () => _sistema.Vehiculos,
                 DisplayProperties = new List<string>
-                    { "ID", "Dominio", "Propietario" }
+                    { "ID", "Dominio" }
             };
 
-
-            _filterableDataGridView.AddEditButton(OnEditClicked);
             _filterableDataGridView.AddDeleteButton(OnDeleteClicked);
 
             Controls.Add(_filterableDataGridView);
-        }
-
-        private void OnEditClicked(Vehiculo vehiculo)
-        {
-            var editVehiculoForm = new NuevoVehiculoForm(_sistema, vehiculo);
-
-            editVehiculoForm.ShowDialog();
         }
 
         private void OnDeleteClicked(Vehiculo vehiculo)
@@ -51,7 +42,7 @@ namespace Desktop.Forms
 
             try
             {
-                _sistema.DarBajaVehiculo(vehiculo.Dominio);
+                _sistema.DarBajaVehiculo(vehiculo.ID);
 
                 MessageBox.Show("Vehículo eliminado correctamente", "Vehículo eliminado", MessageBoxButtons.OK,
                     MessageBoxIcon.Information);

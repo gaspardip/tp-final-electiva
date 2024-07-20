@@ -14,8 +14,13 @@ namespace Business.Models
 
         public List<Infraccion> Infracciones => _infracciones.GetAllInfracciones();
         public List<Vehiculo> Vehiculos => _vehiculos.GetAllVehiculos();
-        //public List<Vehiculo> Vehiculos => _vehiculos.GetVehiculosConInfracciones();
-        //public List<RegistroInfraccion> Registros => _registros.GetRegistrosConImporte();
+        public List<Vehiculo> VehiculosSinPagar => _vehiculos.GetVehiculosSinPagar();
+        public List<RegistroInfraccion> Registros => _registros.GetAllRegistros();
+
+        public List<RegistroInfraccion> GetRegistrosPendientes(string vehiculoDom)
+        {
+            return _registros.GetRegistrosPendientes(vehiculoDom);
+        }
 
         public void CrearInfraccion(int codigo, string descripcion, decimal importe, TipoInfraccion tipo)
         {
@@ -27,29 +32,29 @@ namespace Business.Models
             _infracciones.Editar(new Infraccion(id, codigo, descripcion, importe, tipo));
         }
 
-        public void DarBajaInfraccion(int codigo)
+        public void DarBajaInfraccion(int id)
         {
-            _infracciones.Eliminar(codigo);
+            _infracciones.Eliminar(id);
         }
 
-        public void CrearVehiculo(string dominio, string propietario)
+        public void CrearVehiculo(string dominio)
         {
-            _vehiculos.Agregar(new Vehiculo(dominio, propietario));
+            _vehiculos.Agregar(new Vehiculo(dominio));
         }
 
-        public void EditarVehiculo(int id, string dominio, string propietario)
+        public void DarBajaVehiculo(int id)
         {
-            _vehiculos.Editar(new Vehiculo(id, dominio, propietario));
-        }
-
-        public void DarBajaVehiculo(string dominio)
-        {
-            _vehiculos.Eliminar(dominio);
+            _vehiculos.Eliminar(id);
         }
 
         public void CrearRegistro(int infCod, string vehDom, DateTime fs, DateTime fv)
         {
             _registros.Agregar(new RegistroInfraccion(infCod, vehDom, fs, fv));
+        }
+
+        public void RegistrarPagoVehiculo(RegistroInfraccion registro)
+        {
+            _vehiculos.Pagar(registro);
         }
     }
 }

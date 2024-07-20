@@ -32,7 +32,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxDom = new System.Windows.Forms.TextBox();
             this.dateTimePickerFS = new System.Windows.Forms.DateTimePicker();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonConf = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxCod = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
@@ -60,23 +60,24 @@
             this.textBoxDom.Location = new System.Drawing.Point(186, 58);
             this.textBoxDom.Name = "textBoxDom";
             this.textBoxDom.Size = new System.Drawing.Size(148, 20);
-            this.textBoxDom.TabIndex = 2;
+            this.textBoxDom.TabIndex = 0;
             // 
             // dateTimePickerFS
             // 
             this.dateTimePickerFS.Location = new System.Drawing.Point(186, 151);
             this.dateTimePickerFS.Name = "dateTimePickerFS";
             this.dateTimePickerFS.Size = new System.Drawing.Size(148, 20);
-            this.dateTimePickerFS.TabIndex = 3;
+            this.dateTimePickerFS.TabIndex = 2;
             // 
-            // button1
+            // buttonConf
             // 
-            this.button1.Location = new System.Drawing.Point(352, 228);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Registrar";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonConf.Location = new System.Drawing.Point(352, 228);
+            this.buttonConf.Name = "buttonConf";
+            this.buttonConf.Size = new System.Drawing.Size(75, 23);
+            this.buttonConf.TabIndex = 4;
+            this.buttonConf.Text = "Registrar";
+            this.buttonConf.UseVisualStyleBackColor = true;
+            this.buttonConf.Click += new System.EventHandler(this.buttonConf_Click);
             // 
             // label3
             // 
@@ -92,7 +93,7 @@
             this.textBoxCod.Location = new System.Drawing.Point(186, 104);
             this.textBoxCod.Name = "textBoxCod";
             this.textBoxCod.Size = new System.Drawing.Size(148, 20);
-            this.textBoxCod.TabIndex = 6;
+            this.textBoxCod.TabIndex = 1;
             // 
             // RegistrarInfraccionForm
             // 
@@ -101,7 +102,7 @@
             this.ClientSize = new System.Drawing.Size(439, 263);
             this.Controls.Add(this.textBoxCod);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonConf);
             this.Controls.Add(this.dateTimePickerFS);
             this.Controls.Add(this.textBoxDom);
             this.Controls.Add(this.label2);
@@ -119,7 +120,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxDom;
         private System.Windows.Forms.DateTimePicker dateTimePickerFS;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonConf;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxCod;
     }

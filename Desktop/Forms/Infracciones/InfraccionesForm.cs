@@ -25,9 +25,9 @@ namespace Desktop.Forms.Infracciones
             _filterableDataGridView = new FilterableDataGridView<RegistroInfraccion>
             {
                 Dock = DockStyle.Fill,
-                //DataFetcher = () => _sistema.Registros,
+                DataFetcher = () => _sistema.Registros,
                 DisplayProperties = new List<string>
-                    { "ID", "InfraccionCod", "VehiculoDom", "FechaSuceso", "FechaVencimiento", "Importe", "Pagada" }
+                    { "ID", "InfraccionCod", "VehiculoDom", "FechaSuceso", "FechaVencimiento" }
             };
 
 
