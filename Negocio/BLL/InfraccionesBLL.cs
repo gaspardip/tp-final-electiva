@@ -21,9 +21,9 @@ namespace Business.BLL
             _infracciones.Update(infraccion.ID, infraccion.Codigo, infraccion.Descripcion, infraccion.Importe, (int)infraccion.Tipo);
         }
 
-        public void Eliminar(int codigo)
+        public void Eliminar(int id)
         {
-            _infracciones.Delete(codigo);
+            _infracciones.Delete(id);
         }
 
         public List<Infraccion> GetAllInfracciones()

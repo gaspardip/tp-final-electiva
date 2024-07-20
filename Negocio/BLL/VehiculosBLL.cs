@@ -13,43 +13,40 @@ namespace Business.BLL
 
         public void Agregar(Vehiculo vehiculo)
         {
-            _vehiculos.Insert(vehiculo.Dominio, vehiculo.Propietario);
+            _vehiculos.Insert(vehiculo.Dominio);
         }
 
-        public void Editar(Vehiculo vehiculo)
+        public void Eliminar(int id)
         {
-            _vehiculos.Update(vehiculo.ID, vehiculo.Dominio, vehiculo.Propietario);
+            _vehiculos.Delete(id);
         }
 
-        public void Eliminar(string dominio)
+        public void Pagar (RegistroInfraccion registro)
         {
-            _vehiculos.Delete(dominio);
+            _vehiculos.Pagar(registro.ID, registro.VehiculoDom);
         }
 
-        //public List<Vehiculo> GetVehiculosConInfracciones()
-        //{
-        //    var dataTable = _vehiculos.GetVehiculosConInfracciones();
+        private static Vehiculo MapVehiculo(DataRow row)
+        {
+            return new Vehiculo(
+            row.Field<int>("ID"),
+            row.Field<string>("Dominio"));
+        }
 
-        //    return (from DataRow row in dataTable.Rows
-        //                               select new Vehiculo(
-        //                                                          row.Field<int>("ID"),
-        //                                                                                 row.Field<string>("Dominio"),
-        //                                                                                                        row.Field<string>("Propietario")
-        //                                                                                                                           ))
-        //        .ToList();
-        //}
+        public List<Vehiculo> GetVehiculosSinPagar()
+        {
+            var dataTable = _vehiculos.GetVehiculosSinPagar();
+
+            return (from DataRow row in dataTable.Rows
+                    select MapVehiculo(row)).ToList();
+        }
 
         public List<Vehiculo> GetAllVehiculos()
         {
             var dataTable = _vehiculos.GetAllVehiculos();
 
             return (from DataRow row in dataTable.Rows
-                    select new Vehiculo(
-                        row.Field<int>("ID"),
-                        row.Field<string>("Dominio"),
-                        row.Field<string>("Propietario")
-                    ))
-                .ToList();
+                    select MapVehiculo(row)).ToList();
         }
 
 

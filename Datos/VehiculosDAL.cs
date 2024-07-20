@@ -1,6 +1,6 @@
 ﻿using System.Data;
 using System.Data.OleDb;
-using System.Net;
+using System;
 
 namespace DAL
 {
@@ -15,7 +15,23 @@ namespace DAL
             return GetAll();
         }
 
-        public void Insert(string dominio, string propietario)
+        public DataTable GetVehiculosSinPagar()
+        {
+            return ExecuteQuery("SELECT * FROM Vehiculos WHERE Dominio IN (SELECT VehiculoDom FROM RegistrosInfracciones WHERE Pagada = FALSE AND FechaVencimiento >= Date())");
+        }
+
+        public void Pagar (int id, string vehDom)
+        {
+            var parameters = new OleDbParameter[]
+            {
+                new OleDbParameter("ID", id),
+                new OleDbParameter("VehiculoDom", vehDom)
+            };
+
+            ExecuteNonQuery("UPDATE RegistroInfracciones SET Pagada = TRUE WHERE ID = ? AND VehiculoDom = ?", parameters);
+        }
+
+        public void Insert(string dominio)
         {
 
 
@@ -24,41 +40,17 @@ namespace DAL
                 throw new DuplicateNameException("Ya existe un vehículo con ese dominio");
             }
 
-            Insert(new OleDbParameter("Dominio", dominio),
-                               new OleDbParameter("Propietario", propietario));
-        }
+            Insert(new OleDbParameter("Dominio", dominio));
+        } 
 
-        public void Delete(string dominio)
+        public void Delete(int id)
         {
             OleDbParameter[] parameters = new OleDbParameter[]
-            {
-                new OleDbParameter("Dominio", dominio)
-            };
-
-            Delete("Dominio = ?", parameters);
-        }
-
-        public void Update(int id, string dominio, string propietario)
-        {
-            if (Exists(new OleDbParameter("Dominio", dominio)))
-            {
-                throw new DuplicateNameException("Ya existe un vehículo con ese dominio");
-            }
-
-            var setParameters = new OleDbParameter[]
-            {
-                new OleDbParameter("Dominio", dominio),
-                new OleDbParameter("Propietario", propietario)
-            };
-
-            var whereClause = "ID = ?";
-
-            var whereParameters = new OleDbParameter[]
             {
                 new OleDbParameter("ID", id)
             };
 
-            Update(setParameters, whereClause, whereParameters);
+            Delete("ID = ?", parameters);
         }
     }
 }

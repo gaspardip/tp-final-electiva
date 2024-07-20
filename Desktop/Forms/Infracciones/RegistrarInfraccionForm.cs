@@ -9,9 +9,6 @@ namespace Desktop.Forms.Infracciones
     public partial class RegistrarInfraccionForm : Form
     {
         private readonly SistemaInfracciones _sistemaInfracciones;
-        private readonly DateTime _fechaSuceso;
-        private readonly DateTime _fechaVencimiento;
-
 
         public RegistrarInfraccionForm(SistemaInfracciones si, RegistroInfraccion ri = null)
         {
@@ -36,9 +33,9 @@ namespace Desktop.Forms.Infracciones
                     throw new Exception("Debe completar todos los campos");
                 }
 
-                _sistemaInfracciones.CrearRegistro(Codigo, Dominio, _fechaSuceso, _fechaVencimiento);
+                _sistemaInfracciones.CrearRegistro(Codigo, Dominio, FechaSuceso, FechaVencimiento);
 
-                MessageBox.Show("Vehículo creado correctamente", "Vehículo Creado", MessageBoxButtons.OK,
+                MessageBox.Show("Registro creado correctamente", "Registro Creado", MessageBoxButtons.OK,
                   MessageBoxIcon.Information);
 
                 DialogResult = DialogResult.OK;

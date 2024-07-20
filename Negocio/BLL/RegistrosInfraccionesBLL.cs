@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Business.Enums;
@@ -11,9 +12,38 @@ namespace Business.BLL
     {
         private readonly RegistrosInfraccionesDAL _registros = new RegistrosInfraccionesDAL();
 
+        public List<RegistroInfraccion> GetAllRegistros()
+        {
+            var dataTable = _registros.GetAllRegistros();
+
+            return (from DataRow row in dataTable.Rows
+                    select new RegistroInfraccion(
+                        row.Field<int>("ID"),
+                        row.Field<int>("InfraccionCod"),
+                        row.Field<string>("VehiculoDom"),
+                        row.Field<DateTime>("FechaSuceso"),
+                        row.Field<DateTime>("FechaVencimiento")
+                    ))
+                .ToList();
+        }
+
         public void Agregar(RegistroInfraccion ri)
         {
             _registros.Insert(ri.InfraccionCod, ri.VehiculoDom, ri.FechaSuceso, ri.FechaVencimiento);
+        }
+
+        public List<RegistroInfraccion> GetRegistrosPendientes(string vehiculoDom)
+        {
+            var dataTable = _registros.GetRegistrosPendientes(vehiculoDom);
+
+            return (from DataRow row in dataTable.Rows
+                    select new RegistroInfraccion(
+                    row.Field<int>("ID"),
+                    row.Field<int>("InfraccionCod"),
+                    row.Field<string>("VehiculoDom"),
+                    row.Field<DateTime>("FechaSuceso"),
+                    row.Field<DateTime>("FechaVencimiento")))
+                .ToList();
         }
 
         //public List<RegistroInfraccion> GetRegistrosSinPagar()

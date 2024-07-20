@@ -1,22 +1,23 @@
 ﻿using Business.Enums;
+using System.Collections.Generic;
 
 namespace Business.Models
 {
     public class Vehiculo
     {
-        public Vehiculo(string domino, string propietario)
+        public Vehiculo(string dominio)
         {
-            Dominio = domino;
-            Propietario = propietario;
+            Dominio = dominio;
+            Infracciones = new List<Infraccion>();
         }
 
-        public Vehiculo(int id, string domino, string propietario): this(domino, propietario)
+        public Vehiculo(int id, string dominio): this(dominio)
         {
             ID = id;
         }
 
+        public List<Infraccion> Infracciones { get; set; }
         public int ID { get; set; }
         public string Dominio { get; set; }
-        public string Propietario { get; set; }
     }
 }

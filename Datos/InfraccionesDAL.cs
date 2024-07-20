@@ -29,14 +29,14 @@ namespace DAL
                                                              new OleDbParameter("Tipo", tipo));
         }
 
-        public void Delete(int codigo)
+        public void Delete(int id)
         {
             OleDbParameter[] parameters = new OleDbParameter[]
             {
-                new OleDbParameter("Codigo", codigo)
+                new OleDbParameter("ID", id)
             };
 
-            Delete("Codigo = ?", parameters);
+            Delete("ID = ?", parameters);
         }
 
         public void Update(int id, int codigo, string descripcion, decimal importe, int tipo)

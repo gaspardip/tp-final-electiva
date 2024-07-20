@@ -11,13 +11,23 @@ namespace DAL
 
         }
 
+        public DataTable GetAllRegistros()
+        {
+            return ExecuteQuery("SELECT * FROM RegistrosInfracciones");
+        }
+
+        public DataTable GetRegistrosPendientes(string vehiculoDom)
+        {
+            return ExecuteQuery("SELECT * FROM RegistrosInfracciones WHERE VehiculoDom = ? AND FechaVencimiento >= Date() AND Pagada = FALSE", new OleDbParameter("VehiculoDom", vehiculoDom));
+        }
+
         public void Insert(int infCod, string vehDom, DateTime fs, DateTime fv)
         {
-            if(!Exists(new OleDbParameter("InfraccionCod", infCod)))
+            if(!ExistsInfraccion(new OleDbParameter("Codigo", infCod)))
             {
                 throw new DuplicateNameException("No existe el código de infracción ingresado");
             }
-            if(!Exists(new OleDbParameter("VehiculoDom", vehDom)))
+            if(!ExistsVehiculo(new OleDbParameter("Dominio", vehDom)))
             {
                 throw new DuplicateNameException("No existe el dominio ingresado");
             }

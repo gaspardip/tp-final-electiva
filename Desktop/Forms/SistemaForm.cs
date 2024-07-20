@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using Business.Models;
 using Desktop.Forms.Infracciones;
+using Desktop.Forms.Vehiculos;
 
 namespace Desktop.Forms
 {
@@ -54,6 +55,20 @@ namespace Desktop.Forms
             var form = new NuevoVehiculoForm(_sistema);
 
             form.ShowDialog();
+        }
+
+        private void registrarPagoInfracciónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_sistema.VehiculosSinPagar.Count == 0)
+            {
+                MessageBox.Show("Ningún vehículo registrado tiene una infracción sin pagar.", "Error", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
+
+            var vehiculosSinPagar = new VehiculosSinPagarForm(_sistema);
+
+            vehiculosSinPagar.ShowDialog();
         }
     }
 }

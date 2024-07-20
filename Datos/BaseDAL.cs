@@ -104,6 +104,26 @@ namespace DAL
             return result > 0;
         }
 
+        protected bool ExistsInfraccion(params OleDbParameter[] parameters)
+        {
+            var query =
+                $"SELECT COUNT(*) FROM Infracciones WHERE {string.Join(" AND ", parameters.Select(p => $"{p.ParameterName} = ?"))}";
+
+            var result = (int)ExecuteScalar(query, parameters);
+
+            return result > 0;
+        }
+
+        protected bool ExistsVehiculo(params OleDbParameter[] parameters)
+        {
+            var query =
+                $"SELECT COUNT(*) FROM Vehiculos WHERE {string.Join(" AND ", parameters.Select(p => $"{p.ParameterName} = ?"))}";
+
+            var result = (int)ExecuteScalar(query, parameters);
+
+            return result > 0;
+        }
+
         protected bool ExistsOtherThan(OleDbParameter id, params OleDbParameter[] parameters)
         {
             var query =

@@ -29,6 +29,7 @@ namespace Desktop.Forms
 
             _id = inf.ID;
             textBoxCod.Text = inf.Codigo.ToString();
+            textBoxCod.ReadOnly = true;
             textBoxDesc.Text = inf.Descripcion.ToString();
             textBoxAmount.Text = inf.Importe.ToString();
             comboBoxTipo.Text = inf.Tipo.ToString();
