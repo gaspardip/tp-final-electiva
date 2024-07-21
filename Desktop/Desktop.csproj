@@ -147,6 +147,9 @@
     <EmbeddedResource Include="Forms\Vehiculos\NuevoVehiculoForm.resx">
       <DependentUpon>NuevoVehiculoForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Vehiculos\SeleccionarInfraccionForm.resx">
+      <DependentUpon>SeleccionarInfraccionForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Vehiculos\VehiculosForm.resx">
       <DependentUpon>VehiculosForm.cs</DependentUpon>
     </EmbeddedResource>

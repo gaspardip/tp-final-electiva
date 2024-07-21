@@ -11,6 +11,13 @@ namespace DAL
 
         }
 
+        public int ObtenerTipoInfraccion(int infCod)
+        {
+            var tipoInf = ExecuteScalar("SELECT Tipo FROM Infracciones WHERE Codigo = ?", new OleDbParameter("Codigo", infCod));
+
+            return Convert.ToInt32(tipoInf);
+        }
+
         public DataTable GetAllRegistros()
         {
             return ExecuteQuery("SELECT * FROM RegistrosInfracciones");
@@ -23,11 +30,11 @@ namespace DAL
 
         public void Insert(int infCod, string vehDom, DateTime fs, DateTime fv)
         {
-            if(!ExistsInfraccion(new OleDbParameter("Codigo", infCod)))
+            if(!ExistsInTable("Infracciones", new OleDbParameter("Codigo", infCod)))
             {
                 throw new DuplicateNameException("No existe el código de infracción ingresado");
             }
-            if(!ExistsVehiculo(new OleDbParameter("Dominio", vehDom)))
+            if(!ExistsInTable("Vehiculos", new OleDbParameter("Dominio", vehDom)))
             {
                 throw new DuplicateNameException("No existe el dominio ingresado");
             }

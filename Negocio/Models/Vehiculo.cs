@@ -8,7 +8,7 @@ namespace Business.Models
         public Vehiculo(string dominio)
         {
             Dominio = dominio;
-            Infracciones = new List<Infraccion>();
+            Registros = new List<RegistroInfraccion>();
         }
 
         public Vehiculo(int id, string dominio): this(dominio)
@@ -16,7 +16,7 @@ namespace Business.Models
             ID = id;
         }
 
-        public List<Infraccion> Infracciones { get; set; }
+        public List<RegistroInfraccion> Registros { get; set; }
         public int ID { get; set; }
         public string Dominio { get; set; }
     }
