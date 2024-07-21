@@ -27,7 +27,7 @@ namespace Desktop.Forms.Vehiculos
             {
                 Dock = DockStyle.Fill,
                 DataFetcher = () => _sistema.GetRegistrosPendientes(_vehiculo.Dominio),
-                DisplayProperties = new List<string> { "ID", "InfraccionCod", "VehiculoDom", "FechaSuceso", "FechaVencimiento" }
+                DisplayProperties = new List<string> { "ID", "InfraccionCod", "VehiculoDom", "FechaSuceso", "FechaVencimiento", "Importe" }
             };
 
             _filterableDataGridView.AddCustomButton("Registrar pago", OnRegisterPaymentClicked);

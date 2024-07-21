@@ -26,7 +26,7 @@ namespace Desktop.Forms.Infracciones
                 Dock = DockStyle.Fill,
                 DataFetcher = () => _sistema.Registros,
                 DisplayProperties = new List<string>
-                    { "ID", "InfraccionCod", "VehiculoDom", "FechaSuceso", "FechaVencimiento" }
+                    { "ID", "InfraccionCod", "VehiculoDom", "FechaSuceso", "FechaVencimiento", "Importe" }
             };
 
 
