@@ -23,19 +23,38 @@ namespace Business.BLL
 
             var infraccionTipo = ObtenerTipoInfraccion(infraccionCod);
 
+            var importe = ObtenerImporte(infraccionCod);
+
+            DateTime fechaHoy = DateTime.Today;
+
+            RegistroInfraccion registro = new RegistroInfraccion();
+
+            decimal resultado = registro.CalcularDescuento(fechaHoy, importe);
+
+
             return infraccionTipo == 1
                 ? new RegistroInfraccionLeve(
                     row.Field<int>("ID"),
                     row.Field<int>("InfraccionCod"),
                     row.Field<string>("VehiculoDom"),
                     row.Field<DateTime>("FechaSuceso"),
-                    row.Field<DateTime>("FechaVencimiento"))
+                    row.Field<DateTime>("FechaVencimiento"),
+                    resultado)
                 : (RegistroInfraccion)new RegistroInfraccionGrave(
                     row.Field<int>("ID"),
                     row.Field<int>("InfraccionCod"),
                     row.Field<string>("VehiculoDom"),
                     row.Field<DateTime>("FechaSuceso"),
-                    row.Field<DateTime>("FechaVencimiento"));
+                    row.Field<DateTime>("FechaVencimiento"),
+                    resultado);
+        }
+
+        private static decimal ObtenerImporte(int infraccionCod)
+        {
+            var registrosInfraccionesDAL = new RegistrosInfraccionesDAL();
+            var infraccionImporte = registrosInfraccionesDAL.ObtenerImporte(infraccionCod);
+
+            return infraccionImporte;
         }
 
         private static int ObtenerTipoInfraccion(int infraccionCod)

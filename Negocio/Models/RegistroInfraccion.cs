@@ -18,6 +18,10 @@ namespace Business.Models
             ID = id;
         }
 
+        public RegistroInfraccion()
+        {
+        }
+
         public int ID { get; set; }
         public int InfraccionCod { get; set; }
         public string VehiculoDom { get; set; }
@@ -25,14 +29,7 @@ namespace Business.Models
         public DateTime FechaVencimiento { get; set; }
         public bool Pagada { get; set; }
 
-        public void Pagar(DateTime fechaPago)
-        {
-            if (Pagada) return;
-
-            Pagada = true;
-        }
-
-        public virtual decimal CalcularDescuento(DateTime fechaPago)
+        public virtual decimal CalcularDescuento(DateTime fechaPago, decimal importe)
         {
             return 0;
         }

@@ -18,6 +18,13 @@ namespace DAL
             return Convert.ToInt32(tipoInf);
         }
 
+        public decimal ObtenerImporte(int infCod)
+        {
+            var importe = ExecuteScalar("SELECT Importe FROM Infracciones WHERE Codigo = ?", new OleDbParameter("Codigo", infCod));
+
+            return Convert.ToDecimal(importe);
+        }
+
         public DataTable GetAllRegistros()
         {
             return ExecuteQuery("SELECT * FROM RegistrosInfracciones");
