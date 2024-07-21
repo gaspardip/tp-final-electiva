@@ -12,55 +12,57 @@ namespace Business.BLL
     {
         private readonly RegistrosInfraccionesDAL _registros = new RegistrosInfraccionesDAL();
 
+        public void Agregar(RegistroInfraccion ri)
+        {
+            _registros.Insert(ri.InfraccionCod, ri.VehiculoDom, ri.FechaSuceso, ri.FechaVencimiento);
+        }
+
+        public static RegistroInfraccion MapRegistroInfraccion(DataRow row)
+        {
+            var infraccionCod = row.Field<int>("InfraccionCod");
+
+            var infraccionTipo = ObtenerTipoInfraccion(infraccionCod);
+
+            return infraccionTipo == 1
+                ? new RegistroInfraccionLeve(
+                    row.Field<int>("ID"),
+                    row.Field<int>("InfraccionCod"),
+                    row.Field<string>("VehiculoDom"),
+                    row.Field<DateTime>("FechaSuceso"),
+                    row.Field<DateTime>("FechaVencimiento"))
+                : (RegistroInfraccion)new RegistroInfraccionGrave(
+                    row.Field<int>("ID"),
+                    row.Field<int>("InfraccionCod"),
+                    row.Field<string>("VehiculoDom"),
+                    row.Field<DateTime>("FechaSuceso"),
+                    row.Field<DateTime>("FechaVencimiento"));
+        }
+
+        private static int ObtenerTipoInfraccion(int infraccionCod)
+        {
+             var registrosInfraccionesDAL = new RegistrosInfraccionesDAL();
+             var infraccionTipo = registrosInfraccionesDAL.ObtenerTipoInfraccion(infraccionCod);
+
+             return infraccionTipo;
+        }
+
+
         public List<RegistroInfraccion> GetAllRegistros()
         {
             var dataTable = _registros.GetAllRegistros();
 
             return (from DataRow row in dataTable.Rows
-                    select new RegistroInfraccion(
-                        row.Field<int>("ID"),
-                        row.Field<int>("InfraccionCod"),
-                        row.Field<string>("VehiculoDom"),
-                        row.Field<DateTime>("FechaSuceso"),
-                        row.Field<DateTime>("FechaVencimiento")
-                    ))
-                .ToList();
+                    select MapRegistroInfraccion(row)).ToList();
         }
 
-        public void Agregar(RegistroInfraccion ri)
-        {
-            _registros.Insert(ri.InfraccionCod, ri.VehiculoDom, ri.FechaSuceso, ri.FechaVencimiento);
-        }
 
         public List<RegistroInfraccion> GetRegistrosPendientes(string vehiculoDom)
         {
             var dataTable = _registros.GetRegistrosPendientes(vehiculoDom);
 
             return (from DataRow row in dataTable.Rows
-                    select new RegistroInfraccion(
-                    row.Field<int>("ID"),
-                    row.Field<int>("InfraccionCod"),
-                    row.Field<string>("VehiculoDom"),
-                    row.Field<DateTime>("FechaSuceso"),
-                    row.Field<DateTime>("FechaVencimiento")))
-                .ToList();
+                    select MapRegistroInfraccion(row)).ToList();
         }
-
-        //public List<RegistroInfraccion> GetRegistrosSinPagar()
-        //{
-        //    var registros = _registros.GetAll();
-        //    return registros.Where(r => !r.Pagada).ToList();
-        //}
-
-        //public List<RegistroInfraccion> GetRegistrosConImporte()
-        //{
-        //    var registros = _registros.GetRegistrosConImporte();
-        //    return registros.Select(r => new RegistroInfraccion(r.ID, r.InfraccionCod, r.VehiculoDom, r.FechaSuceso, r.FechaVencimiento)
-        //    {
-        //        Pagada = r.Pagada
-        //    }).ToList();
-        //}
-
     }
 }
 
