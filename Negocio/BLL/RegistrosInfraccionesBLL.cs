@@ -67,5 +67,13 @@ namespace Business.BLL
             return (from DataRow row in dataTable.Rows
                     select MapRegistroInfraccion(row)).ToList();
         }
+
+        public List<RegistroInfraccion> GetRegistrosPagos(string vehiculoDom)
+        {
+            var dataTable = _registros.GetRegistrosPagos(vehiculoDom);
+
+            return (from DataRow row in dataTable.Rows
+                                       select MapRegistroInfraccion(row)).ToList();
+        }
     }
 }

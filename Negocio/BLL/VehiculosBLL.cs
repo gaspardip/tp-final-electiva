@@ -25,12 +25,23 @@ namespace Business.BLL
             _vehiculos.Pagar(registro.ID, registro.VehiculoDominio);
         }
 
+        public Vehiculo GetVehiculo(string dominio)
+        {
+            var dataTable = _vehiculos.GetVehiculo(dominio);
+
+            if (dataTable.Rows.Count == 0)
+            {
+                return null;
+            }
+
+            return MapVehiculo(dataTable.Rows[0]);
+        }
+
         private static Vehiculo MapVehiculo(DataRow row)
         {
             return new Vehiculo(
                 row.Field<int>("ID"),
                 row.Field<string>("Dominio"),
-                row.Field<string>("Propietario")
             );
         }
 
