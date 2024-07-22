@@ -23,12 +23,17 @@ namespace DAL
         {
             const string query =
                 "SELECT RI.ID, RI.InfraccionID, RI.VehiculoDominio, FechaSuceso, FechaVencimiento, I.Descripcion, I.Importe, I.Tipo FROM RegistrosInfracciones RI " +
-                "INNER JOIN Infracciones I ON RI.InfraccionID = I.ID" +
+                "INNER JOIN Infracciones I ON RI.InfraccionID = I.ID " +
                 "WHERE RI.VehiculoDominio = ? AND RI.FechaVencimiento >= Date() AND RI.Pagada = FALSE";
 
             return ExecuteQuery(
                 query,
                 new OleDbParameter("VehiculoDominio", dominio));
+        }
+
+        public DataTable GetRegistrosPagos(string vehiculoDom)
+        {
+            return ExecuteQuery("SELECT * FROM RegistrosInfracciones WHERE VehiculoDominio = ? AND Pagada = TRUE", new OleDbParameter("VehiculoDominio", vehiculoDom));
         }
 
         public void Insert(int idInfraccion, string dominio, DateTime fs)

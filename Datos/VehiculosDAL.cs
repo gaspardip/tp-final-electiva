@@ -15,9 +15,14 @@ namespace DAL
             return GetAll();
         }
 
+        public DataTable GetVehiculo(string dominio)
+        {
+            return ExecuteQuery("SELECT * FROM Vehiculos WHERE Dominio = ?", new OleDbParameter("Dominio", dominio));
+        }
+
         public DataTable GetVehiculosSinPagar()
         {
-            return ExecuteQuery("SELECT * FROM Vehiculos WHERE Dominio IN (SELECT VehiculoDom FROM RegistrosInfracciones WHERE Pagada = FALSE AND FechaVencimiento >= Date())");
+            return ExecuteQuery("SELECT * FROM Vehiculos WHERE Dominio IN (SELECT VehiculoDominio FROM RegistrosInfracciones WHERE Pagada = FALSE AND FechaVencimiento >= Date())");
         }
 
         public void Pagar (int id, string vehDom)
@@ -25,10 +30,10 @@ namespace DAL
             var parameters = new OleDbParameter[]
             {
                 new OleDbParameter("ID", id),
-                new OleDbParameter("VehiculoDom", vehDom)
+                new OleDbParameter("VehiculoDominio", vehDom)
             };
 
-            ExecuteNonQuery("UPDATE RegistroInfracciones SET Pagada = TRUE WHERE ID = ? AND VehiculoDom = ?", parameters);
+            ExecuteNonQuery("UPDATE RegistroInfracciones SET Pagada = TRUE WHERE ID = ? AND VehiculoDominio = ?", parameters);
         }
 
         public void Insert(string dominio)

@@ -38,7 +38,11 @@ namespace Business.Models
         }
 
         public int ID { get; set; }
+<<<<<<< HEAD
         public Infraccion Infraccion { get; set; }
+=======
+        public int InfraccionID { get; set; }
+>>>>>>> 85589dc (Web terminada)
         public string VehiculoDominio { get; set; }
         public DateTime FechaSuceso { get; set; }
         public DateTime FechaVencimiento { get; set; }
