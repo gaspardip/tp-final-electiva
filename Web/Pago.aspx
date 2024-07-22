@@ -9,7 +9,7 @@
                 <asp:ListBox
                     ID="ListBoxInfraccionesPagas"
                     Rows="20"
-                    Width="450px"
+                    Width="100%"
                     SelectionMode="Single"
                     runat="server"></asp:ListBox>
             </div>
