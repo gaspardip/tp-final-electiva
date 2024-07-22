@@ -13,12 +13,13 @@ namespace Business.BLL
 
         public void Agregar(Infraccion infraccion)
         {
-            _infracciones.Insert(infraccion.Codigo, infraccion.Descripcion, infraccion.Importe, (int)infraccion.Tipo);
+            _infracciones.Insert(infraccion.Descripcion, infraccion.Importe, (int)infraccion.Tipo);
         }
 
         public void Editar(Infraccion infraccion)
         {
-            _infracciones.Update(infraccion.ID, infraccion.Codigo, infraccion.Descripcion, infraccion.Importe, (int)infraccion.Tipo);
+            _infracciones.Update(infraccion.ID, infraccion.Descripcion, infraccion.Importe,
+                (int)infraccion.Tipo);
         }
 
         public void Eliminar(int id)
@@ -33,14 +34,11 @@ namespace Business.BLL
             return (from DataRow row in dataTable.Rows
                     select new Infraccion(
                         row.Field<int>("ID"),
-                        row.Field<int>("Codigo"),
                         row.Field<string>("Descripcion"),
                         row.Field<decimal>("Importe"),
                         (TipoInfraccion)row.Field<int>("Tipo")
                     ))
                 .ToList();
-        }   
-
-
+        }
     }
 }

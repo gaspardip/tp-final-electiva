@@ -14,57 +14,43 @@ namespace Business.BLL
 
         public void Agregar(RegistroInfraccion ri)
         {
-            _registros.Insert(ri.InfraccionCod, ri.VehiculoDom, ri.FechaSuceso, ri.FechaVencimiento);
+            _registros.Insert(ri.Infraccion.ID, ri.VehiculoDominio, ri.FechaSuceso);
+        }
+
+        public void Editar(RegistroInfraccion ri)
+        {
+            _registros.Update(ri.ID, ri.Infraccion.ID, ri.VehiculoDominio, ri.FechaSuceso, ri.FechaVencimiento);
+        }
+
+        public void Eliminar(int id)
+        {
+            _registros.Delete(id);
         }
 
         public static RegistroInfraccion MapRegistroInfraccion(DataRow row)
         {
-            var infraccionCod = row.Field<int>("InfraccionCod");
+            var tipo = (TipoInfraccion)row.Field<int>("Tipo");
 
-            var infraccionTipo = ObtenerTipoInfraccion(infraccionCod);
+            var infraccion = new Infraccion(
+                row.Field<int>("InfraccionID"),
+                row.Field<string>("Descripcion"),
+                row.Field<decimal>("Importe"),
+                tipo);
 
-            var importe = ObtenerImporte(infraccionCod);
-
-            DateTime fechaHoy = DateTime.Today;
-
-            RegistroInfraccion registro = new RegistroInfraccion();
-
-            decimal resultado = registro.CalcularDescuento(fechaHoy, importe);
-
-
-            return infraccionTipo == 1
+            return tipo == TipoInfraccion.Leve
                 ? new RegistroInfraccionLeve(
                     row.Field<int>("ID"),
-                    row.Field<int>("InfraccionCod"),
-                    row.Field<string>("VehiculoDom"),
+                    infraccion,
+                    row.Field<string>("VehiculoDominio"),
                     row.Field<DateTime>("FechaSuceso"),
-                    row.Field<DateTime>("FechaVencimiento"),
-                    resultado)
+                    row.Field<DateTime>("FechaVencimiento"))
                 : (RegistroInfraccion)new RegistroInfraccionGrave(
                     row.Field<int>("ID"),
-                    row.Field<int>("InfraccionCod"),
-                    row.Field<string>("VehiculoDom"),
+                    infraccion,
+                    row.Field<string>("VehiculoDominio"),
                     row.Field<DateTime>("FechaSuceso"),
-                    row.Field<DateTime>("FechaVencimiento"),
-                    resultado);
+                    row.Field<DateTime>("FechaVencimiento"));
         }
-
-        private static decimal ObtenerImporte(int infraccionCod)
-        {
-            var registrosInfraccionesDAL = new RegistrosInfraccionesDAL();
-            var infraccionImporte = registrosInfraccionesDAL.ObtenerImporte(infraccionCod);
-
-            return infraccionImporte;
-        }
-
-        private static int ObtenerTipoInfraccion(int infraccionCod)
-        {
-             var registrosInfraccionesDAL = new RegistrosInfraccionesDAL();
-             var infraccionTipo = registrosInfraccionesDAL.ObtenerTipoInfraccion(infraccionCod);
-
-             return infraccionTipo;
-        }
-
 
         public List<RegistroInfraccion> GetAllRegistros()
         {
@@ -73,7 +59,6 @@ namespace Business.BLL
             return (from DataRow row in dataTable.Rows
                     select MapRegistroInfraccion(row)).ToList();
         }
-
 
         public List<RegistroInfraccion> GetRegistrosPendientes(string vehiculoDom)
         {
@@ -84,4 +69,3 @@ namespace Business.BLL
         }
     }
 }
-

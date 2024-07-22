@@ -1,5 +1,4 @@
-﻿using Business.Enums;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Business.Models
 {
@@ -11,7 +10,7 @@ namespace Business.Models
             Registros = new List<RegistroInfraccion>();
         }
 
-        public Vehiculo(int id, string dominio): this(dominio)
+        public Vehiculo(int id, string dominio, string propietario) : this(dominio)
         {
             ID = id;
         }

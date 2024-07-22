@@ -1,8 +1,8 @@
-﻿using Business.Models;
-using Desktop.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Business.Models;
+using Desktop.Controls;
 
 namespace Desktop.Forms
 {
@@ -27,7 +27,7 @@ namespace Desktop.Forms
                 Dock = DockStyle.Fill,
                 DataFetcher = () => _sistema.Vehiculos,
                 DisplayProperties = new List<string>
-                    { "ID", "Dominio" }
+                    { "ID", "Dominio", "Propietario" }
             };
 
             _filterableDataGridView.AddDeleteButton(OnDeleteClicked);
@@ -50,7 +50,7 @@ namespace Desktop.Forms
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
+                    MessageBoxIcon.Error);
             }
         }
     }

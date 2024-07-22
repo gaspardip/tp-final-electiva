@@ -30,17 +30,17 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBoxDom = new System.Windows.Forms.TextBox();
             this.dateTimePickerFS = new System.Windows.Forms.DateTimePicker();
-            this.buttonConf = new System.Windows.Forms.Button();
+            this.buttonConfirmar = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBoxCod = new System.Windows.Forms.TextBox();
+            this.comboBoxInfraccion = new System.Windows.Forms.ComboBox();
+            this.comboBoxDominio = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(50, 61);
+            this.label1.Location = new System.Drawing.Point(22, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(107, 13);
             this.label1.TabIndex = 0;
@@ -49,62 +49,64 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(63, 157);
+            this.label2.Location = new System.Drawing.Point(38, 117);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(91, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Fecha del suceso";
             // 
-            // textBoxDom
-            // 
-            this.textBoxDom.Location = new System.Drawing.Point(186, 58);
-            this.textBoxDom.Name = "textBoxDom";
-            this.textBoxDom.Size = new System.Drawing.Size(148, 20);
-            this.textBoxDom.TabIndex = 0;
-            // 
             // dateTimePickerFS
             // 
-            this.dateTimePickerFS.Location = new System.Drawing.Point(186, 151);
+            this.dateTimePickerFS.Location = new System.Drawing.Point(158, 117);
             this.dateTimePickerFS.Name = "dateTimePickerFS";
             this.dateTimePickerFS.Size = new System.Drawing.Size(148, 20);
             this.dateTimePickerFS.TabIndex = 2;
             // 
-            // buttonConf
+            // buttonConfirmar
             // 
-            this.buttonConf.Location = new System.Drawing.Point(352, 228);
-            this.buttonConf.Name = "buttonConf";
-            this.buttonConf.Size = new System.Drawing.Size(75, 23);
-            this.buttonConf.TabIndex = 4;
-            this.buttonConf.Text = "Registrar";
-            this.buttonConf.UseVisualStyleBackColor = true;
-            this.buttonConf.Click += new System.EventHandler(this.buttonConf_Click);
+            this.buttonConfirmar.Location = new System.Drawing.Point(231, 169);
+            this.buttonConfirmar.Name = "buttonConfirmar";
+            this.buttonConfirmar.Size = new System.Drawing.Size(75, 23);
+            this.buttonConfirmar.TabIndex = 4;
+            this.buttonConfirmar.Text = "Confirmar";
+            this.buttonConfirmar.UseVisualStyleBackColor = true;
+            this.buttonConfirmar.Click += new System.EventHandler(this.buttonConf_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(50, 107);
+            this.label3.Location = new System.Drawing.Point(75, 70);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(104, 13);
+            this.label3.Size = new System.Drawing.Size(54, 13);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Código de infracción";
+            this.label3.Text = "Infracción";
             // 
-            // textBoxCod
+            // comboBoxInfraccion
             // 
-            this.textBoxCod.Location = new System.Drawing.Point(186, 104);
-            this.textBoxCod.Name = "textBoxCod";
-            this.textBoxCod.Size = new System.Drawing.Size(148, 20);
-            this.textBoxCod.TabIndex = 1;
+            this.comboBoxInfraccion.FormattingEnabled = true;
+            this.comboBoxInfraccion.Location = new System.Drawing.Point(158, 70);
+            this.comboBoxInfraccion.Name = "comboBoxInfraccion";
+            this.comboBoxInfraccion.Size = new System.Drawing.Size(148, 21);
+            this.comboBoxInfraccion.TabIndex = 6;
+            // 
+            // comboBoxDominio
+            // 
+            this.comboBoxDominio.FormattingEnabled = true;
+            this.comboBoxDominio.Location = new System.Drawing.Point(158, 24);
+            this.comboBoxDominio.Name = "comboBoxDominio";
+            this.comboBoxDominio.Size = new System.Drawing.Size(148, 21);
+            this.comboBoxDominio.TabIndex = 6;
             // 
             // RegistrarInfraccionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(439, 263);
-            this.Controls.Add(this.textBoxCod);
+            this.ClientSize = new System.Drawing.Size(343, 216);
+            this.Controls.Add(this.comboBoxDominio);
+            this.Controls.Add(this.comboBoxInfraccion);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.buttonConf);
+            this.Controls.Add(this.buttonConfirmar);
             this.Controls.Add(this.dateTimePickerFS);
-            this.Controls.Add(this.textBoxDom);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "RegistrarInfraccionForm";
@@ -118,10 +120,10 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBoxDom;
         private System.Windows.Forms.DateTimePicker dateTimePickerFS;
-        private System.Windows.Forms.Button buttonConf;
+        private System.Windows.Forms.Button buttonConfirmar;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxCod;
+        private System.Windows.Forms.ComboBox comboBoxInfraccion;
+        private System.Windows.Forms.ComboBox comboBoxDominio;
     }
 }

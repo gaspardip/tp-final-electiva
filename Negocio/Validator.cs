@@ -4,21 +4,6 @@ namespace Business
 {
     public static class Validator
     {
-        public static int ValidateCodigo(string value)
-        {
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                throw new ArgumentException("El código no puede estar vacío");
-            }
-
-            if (!int.TryParse(value, out var cod))
-            {
-                throw new ArgumentException("El código debe ser un número");
-            }
-
-            return cod;
-        }
-
         public static decimal ValidateImporte(string value)
         {
             if (string.IsNullOrWhiteSpace(value))

@@ -1,8 +1,7 @@
-﻿using Business.Models;
-using System;
-using Desktop.Enums;
+﻿using System;
 using System.Windows.Forms;
-
+using Business.Models;
+using Desktop.Enums;
 
 namespace Desktop.Forms
 {
@@ -17,7 +16,6 @@ namespace Desktop.Forms
 
             InitializeComponent();
             CenterToParent();
-
         }
 
         public string Dominio => textBoxDom.Text;
@@ -35,8 +33,8 @@ namespace Desktop.Forms
                 _sistemaInfracciones.CrearVehiculo(Dominio);
 
                 MessageBox.Show("Vehículo creado correctamente", "Vehículo Creado", MessageBoxButtons.OK,
-                  MessageBoxIcon.Information);
-                
+                    MessageBoxIcon.Information);
+
 
                 DialogResult = DialogResult.OK;
 

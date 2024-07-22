@@ -1,6 +1,6 @@
-﻿using System.Data.OleDb;
+﻿using System;
 using System.Data;
-using System;
+using System.Data.OleDb;
 
 namespace DAL
 {
@@ -8,49 +8,52 @@ namespace DAL
     {
         public RegistrosInfraccionesDAL() : base("RegistrosInfracciones")
         {
-
-        }
-
-        public int ObtenerTipoInfraccion(int infCod)
-        {
-            var tipoInf = ExecuteScalar("SELECT Tipo FROM Infracciones WHERE Codigo = ?", new OleDbParameter("Codigo", infCod));
-
-            return Convert.ToInt32(tipoInf);
-        }
-
-        public decimal ObtenerImporte(int infCod)
-        {
-            var importe = ExecuteScalar("SELECT Importe FROM Infracciones WHERE Codigo = ?", new OleDbParameter("Codigo", infCod));
-
-            return Convert.ToDecimal(importe);
         }
 
         public DataTable GetAllRegistros()
         {
-            return ExecuteQuery("SELECT * FROM RegistrosInfracciones");
+            const string query =
+                "SELECT RI.ID, RI.InfraccionID, RI.VehiculoDominio, FechaSuceso, FechaVencimiento, I.Descripcion, I.Importe, I.Tipo FROM RegistrosInfracciones RI " +
+                "INNER JOIN Infracciones I ON RI.InfraccionID = I.ID";
+
+            return ExecuteQuery(query);
         }
 
-        public DataTable GetRegistrosPendientes(string vehiculoDom)
+        public DataTable GetRegistrosPendientes(string dominio)
         {
-            return ExecuteQuery("SELECT * FROM RegistrosInfracciones WHERE VehiculoDom = ? AND FechaVencimiento >= Date() AND Pagada = FALSE", new OleDbParameter("VehiculoDom", vehiculoDom));
+            const string query =
+                "SELECT RI.ID, RI.InfraccionID, RI.VehiculoDominio, FechaSuceso, FechaVencimiento, I.Descripcion, I.Importe, I.Tipo FROM RegistrosInfracciones RI " +
+                "INNER JOIN Infracciones I ON RI.InfraccionID = I.ID" +
+                "WHERE RI.VehiculoDominio = ? AND RI.FechaVencimiento >= Date() AND RI.Pagada = FALSE";
+
+            return ExecuteQuery(
+                query,
+                new OleDbParameter("VehiculoDominio", dominio));
         }
 
-        public void Insert(int infCod, string vehDom, DateTime fs, DateTime fv)
+        public void Insert(int idInfraccion, string dominio, DateTime fs)
         {
-            if(!ExistsInTable("Infracciones", new OleDbParameter("Codigo", infCod)))
-            {
-                throw new DuplicateNameException("No existe el código de infracción ingresado");
-            }
-            if(!ExistsInTable("Vehiculos", new OleDbParameter("Dominio", vehDom)))
-            {
-                throw new DuplicateNameException("No existe el dominio ingresado");
-            }
-
-            Insert(new OleDbParameter("InfraccionCod", infCod),
-                   new OleDbParameter("VehiculoDom", vehDom),
-                   new OleDbParameter("FechaSuceso", fs),
-                   new OleDbParameter("FechaVencimiento", fv));
+            Insert(new OleDbParameter("InfraccionID", idInfraccion),
+                new OleDbParameter("VehiculoDominio", dominio),
+                new OleDbParameter("FechaSuceso", OleDbType.Date) { Value = fs },
+                new OleDbParameter("FechaVencimiento", OleDbType.Date) { Value = fs.AddDays(30) });
         }
 
+        public void Update(int idRegistro, int idInfraccion, string dominio, DateTime fs, DateTime fv)
+        {
+            Update(new[]
+                {
+                    new OleDbParameter("InfraccionID", idInfraccion),
+                    new OleDbParameter("VehiculoDominio", dominio),
+                    new OleDbParameter("FechaSuceso", OleDbType.Date) { Value = fs },
+                    new OleDbParameter("FechaVencimiento", OleDbType.Date) { Value = fs.AddDays(30) }
+                },
+                "ID = ?", new OleDbParameter("ID", idRegistro));
+        }
+
+        public void Delete(int id)
+        {
+            Delete("ID = ?", new OleDbParameter("ID", id));
+        }
     }
 }

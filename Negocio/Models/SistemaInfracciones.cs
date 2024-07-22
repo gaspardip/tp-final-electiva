@@ -8,9 +8,8 @@ namespace Business.Models
     public class SistemaInfracciones
     {
         private readonly InfraccionesBLL _infracciones = new InfraccionesBLL();
-        private readonly VehiculosBLL _vehiculos = new VehiculosBLL();
         private readonly RegistrosInfraccionesBLL _registros = new RegistrosInfraccionesBLL();
-
+        private readonly VehiculosBLL _vehiculos = new VehiculosBLL();
 
         public List<Infraccion> Infracciones => _infracciones.GetAllInfracciones();
         public List<Vehiculo> Vehiculos => _vehiculos.GetAllVehiculos();
@@ -22,14 +21,14 @@ namespace Business.Models
             return _registros.GetRegistrosPendientes(vehiculoDom);
         }
 
-        public void CrearInfraccion(int codigo, string descripcion, decimal importe, TipoInfraccion tipo)
+        public void CrearInfraccion(string descripcion, decimal importe, TipoInfraccion tipo)
         {
-            _infracciones.Agregar(new Infraccion(codigo, descripcion, importe, tipo));
+            _infracciones.Agregar(new Infraccion(descripcion, importe, tipo));
         }
 
-        public void EditarInfraccion(int id, int codigo, string descripcion, decimal importe, TipoInfraccion tipo)
+        public void EditarInfraccion(int id, string descripcion, decimal importe, TipoInfraccion tipo)
         {
-            _infracciones.Editar(new Infraccion(id, codigo, descripcion, importe, tipo));
+            _infracciones.Editar(new Infraccion(id, descripcion, importe, tipo));
         }
 
         public void DarBajaInfraccion(int id)
@@ -47,14 +46,24 @@ namespace Business.Models
             _vehiculos.Eliminar(id);
         }
 
-        public void CrearRegistro(int infCod, string vehDom, DateTime fs, DateTime fv)
-        {
-            _registros.Agregar(new RegistroInfraccion(infCod, vehDom, fs, fv));
-        }
-
         public void RegistrarPagoVehiculo(RegistroInfraccion registro)
         {
             _vehiculos.Pagar(registro);
+        }
+
+        public void CrearRegistro(Infraccion infraccion, string dominio, DateTime fs)
+        {
+            _registros.Agregar(new RegistroInfraccion(infraccion, dominio, fs));
+        }
+
+        public void EditarRegistro(int id, Infraccion infraccion, string dominio, DateTime fs)
+        {
+            _registros.Editar(new RegistroInfraccion(id, infraccion, dominio, fs));
+        }
+
+        public void EliminarRegistro(int id)
+        {
+            _registros.Eliminar(id);
         }
     }
 }

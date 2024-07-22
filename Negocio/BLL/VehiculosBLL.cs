@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using Business.Enums;
 using Business.Models;
 using DAL;
 
@@ -21,16 +20,18 @@ namespace Business.BLL
             _vehiculos.Delete(id);
         }
 
-        public void Pagar (RegistroInfraccion registro)
+        public void Pagar(RegistroInfraccion registro)
         {
-            _vehiculos.Pagar(registro.ID, registro.VehiculoDom);
+            _vehiculos.Pagar(registro.ID, registro.VehiculoDominio);
         }
 
         private static Vehiculo MapVehiculo(DataRow row)
         {
             return new Vehiculo(
-            row.Field<int>("ID"),
-            row.Field<string>("Dominio"));
+                row.Field<int>("ID"),
+                row.Field<string>("Dominio"),
+                row.Field<string>("Propietario")
+            );
         }
 
         public List<Vehiculo> GetVehiculosSinPagar()
@@ -48,7 +49,5 @@ namespace Business.BLL
             return (from DataRow row in dataTable.Rows
                     select MapVehiculo(row)).ToList();
         }
-
-
     }
 }

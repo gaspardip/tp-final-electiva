@@ -132,6 +132,9 @@
     <EmbeddedResource Include="Controls\FilterableDataGridView.resx">
       <DependentUpon>FilterableDataGridView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Infracciones\InfraccionesForm.resx">
+      <DependentUpon>InfraccionesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Infracciones\RegistrarInfraccionForm.resx">
       <DependentUpon>RegistrarInfraccionForm.cs</DependentUpon>
     </EmbeddedResource>

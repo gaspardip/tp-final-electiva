@@ -27,7 +27,7 @@ namespace Desktop.Forms.Infracciones
                 Dock = DockStyle.Fill,
                 DataFetcher = () => _sistema.Infracciones,
                 DisplayProperties = new List<string>
-                    { "ID", "Codigo", "Descripcion", "Importe", "Tipo" }
+                    { "ID", "Descripcion", "Importe", "Tipo" }
             };
 
 
@@ -51,7 +51,7 @@ namespace Desktop.Forms.Infracciones
 
             try
             {
-                _sistema.DarBajaInfraccion(infraccion.Codigo);
+                _sistema.DarBajaInfraccion(infraccion.ID);
 
                 MessageBox.Show("Infracción eliminada correctamente", "Infracción eliminada", MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
@@ -59,7 +59,7 @@ namespace Desktop.Forms.Infracciones
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
+                    MessageBoxIcon.Error);
             }
         }
     }

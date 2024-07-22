@@ -4,16 +4,31 @@ namespace Business.Models
 {
     public class RegistroInfraccion
     {
-
-        public RegistroInfraccion(int infCod, string vehDom, DateTime fs, DateTime fv)
+        public RegistroInfraccion(Infraccion infraccion, string dominio, DateTime fs)
         {
-            InfraccionCod = infCod;
-            VehiculoDom = vehDom;
+            Infraccion = infraccion;
+            VehiculoDominio = dominio;
             FechaSuceso = fs;
+        }
+
+        public RegistroInfraccion(Infraccion infraccion, string dominio, DateTime fs, DateTime fv) : this(infraccion,
+            dominio, fs)
+        {
             FechaVencimiento = fv;
         }
 
-        public RegistroInfraccion(int id, int infCod, string vehDom, DateTime fs, DateTime fv) : this(infCod, vehDom, fs, fv)
+        public RegistroInfraccion(int id, Infraccion infraccion, string dominio, DateTime fs) : this(
+            infraccion,
+            dominio,
+            fs)
+        {
+            ID = id;
+        }
+
+        public RegistroInfraccion(int id, Infraccion infraccion, string dominio, DateTime fs, DateTime fv) : this(
+            infraccion,
+            dominio,
+            fs, fv)
         {
             ID = id;
         }
@@ -23,8 +38,8 @@ namespace Business.Models
         }
 
         public int ID { get; set; }
-        public int InfraccionCod { get; set; }
-        public string VehiculoDom { get; set; }
+        public Infraccion Infraccion { get; set; }
+        public string VehiculoDominio { get; set; }
         public DateTime FechaSuceso { get; set; }
         public DateTime FechaVencimiento { get; set; }
         public bool Pagada { get; set; }
