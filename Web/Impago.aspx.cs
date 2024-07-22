@@ -1,7 +1,8 @@
-﻿using Business.Models;
-using System;
-using System.Web.UI;
+﻿using System;
+using System.Drawing;
 using System.IO;
+using System.Web.UI;
+using Business.Models;
 
 namespace Web
 {
@@ -9,20 +10,25 @@ namespace Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                var vehiculo = (Vehiculo)Session["Vehiculo"];
+            if (IsPostBack) return;
 
-                cargarInfraccionesImpagas(vehiculo);
+            var sistema = (SistemaInfracciones)Session["Sistema"];
+            var vehiculo = (Vehiculo)Session["Vehiculo"];
+
+            if (sistema == null || vehiculo == null)
+            {
+                Response.Redirect("Login.aspx");
             }
+
+            CargarInfraccionesImpagas(vehiculo);
         }
 
-        protected void cargarInfraccionesImpagas(Vehiculo vehiculo)
+        protected void CargarInfraccionesImpagas(Vehiculo vehiculo)
         {
             var sistema = (SistemaInfracciones)Session["Sistema"];
 
             ListBoxInfraccionesImpagas.DataSource = sistema.GetRegistrosPendientes(vehiculo.Dominio);
-            ListBoxInfraccionesImpagas.DataTextField = "InfraccionID";
+            ListBoxInfraccionesImpagas.DataTextField = "Descripcion";
             ListBoxInfraccionesImpagas.DataValueField = "ID";
 
             ListBoxInfraccionesImpagas.DataBind();
@@ -30,12 +36,11 @@ namespace Web
 
         protected void ButtonGenerarPDF_Click(object sender, EventArgs e)
         {
-
             if (ListBoxInfraccionesImpagas.SelectedItem != null)
             {
                 var sistema = (SistemaInfracciones)Session["Sistema"];
 
-                int id = int.Parse(ListBoxInfraccionesImpagas.SelectedItem.Value);
+                var id = int.Parse(ListBoxInfraccionesImpagas.SelectedItem.Value);
 
                 using (var memoryStream = new MemoryStream())
                 {
@@ -50,11 +55,10 @@ namespace Web
                     memoryStream.WriteTo(Response.OutputStream);
                     Response.End();
                 }
-
             }
             else
             {
-                LabelMensaje.ForeColor = System.Drawing.Color.Red;
+                LabelMensaje.ForeColor = Color.Red;
                 LabelMensaje.Text = "Debe seleccionar una infracción impaga.";
             }
         }

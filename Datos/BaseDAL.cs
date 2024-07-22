@@ -8,7 +8,7 @@ namespace DAL
     public abstract class BaseDAL
     {
         protected readonly string ConnectionString =
-            "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\Admin\\source\\repos\\tp-final-electiva\\Datos\\db.accdb;";
+            "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\Usuario\\source\\repos\\tp-final-electiva\\Datos\\db.accdb;";
 
         protected readonly string TableName;
 

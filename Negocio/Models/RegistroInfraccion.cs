@@ -11,7 +11,8 @@ namespace Business.Models
             FechaSuceso = fs;
         }
 
-        public RegistroInfraccion(Infraccion infraccion, string dominio, DateTime fs, DateTime fv) : this(infraccion,
+        public RegistroInfraccion(Infraccion infraccion, string dominio, DateTime fs, DateTime fv) : this(
+            infraccion,
             dominio, fs)
         {
             FechaVencimiento = fv;
@@ -25,12 +26,14 @@ namespace Business.Models
             ID = id;
         }
 
-        public RegistroInfraccion(int id, Infraccion infraccion, string dominio, DateTime fs, DateTime fv) : this(
+        public RegistroInfraccion(int id, Infraccion infraccion, string dominio, DateTime fs, DateTime fv,
+            bool pagada) : this(
             infraccion,
             dominio,
             fs, fv)
         {
             ID = id;
+            Pagada = pagada;
         }
 
         public RegistroInfraccion()
@@ -38,19 +41,18 @@ namespace Business.Models
         }
 
         public int ID { get; set; }
-<<<<<<< HEAD
         public Infraccion Infraccion { get; set; }
-=======
-        public int InfraccionID { get; set; }
->>>>>>> 85589dc (Web terminada)
         public string VehiculoDominio { get; set; }
         public DateTime FechaSuceso { get; set; }
         public DateTime FechaVencimiento { get; set; }
         public bool Pagada { get; set; }
+        public decimal ImporteFinal => Infraccion.Importe - Infraccion.Importe * Descuento;
+        public virtual decimal Descuento => 0;
+        public string Descripcion => ToString();
 
-        public virtual decimal CalcularDescuento(DateTime fechaPago, decimal importe)
+        public override string ToString()
         {
-            return 0;
+            return $"{ID} - {Infraccion.Tipo} - {Infraccion.Descripcion} - ${ImporteFinal} (${Infraccion.Importe})";
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using Business.Models;
-using System;
-using System.Web;
+﻿using System;
+using System.Web.Security;
 using System.Web.UI;
+using Business.Models;
 
 namespace Web
 {
@@ -11,8 +11,11 @@ namespace Web
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            var sistema = Session["Sistema"];
+            var vehiculo = Session["Vehiculo"];
+
             // Si el usuario ya está autenticado, redirigir a la página principal
-            if (User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated && sistema != null && vehiculo != null)
             {
                 Response.Redirect("Default.aspx");
             }
@@ -26,23 +29,21 @@ namespace Web
 
         protected void ButtonLogin_Click(object sender, EventArgs e)
         {
-            string dominio = TextBoxUsername.Text;
-            string password = TextBoxPassword.Text;
+            var dominio = TextBoxUsername.Text;
+            var password = TextBoxPassword.Text;
 
             var usuario = _sistema.BuscarVehiculo(dominio);
 
             if (usuario != null && password == "12345")
             {
-
                 // Autenticación exitosa
                 Session["Vehiculo"] = usuario;
 
                 // Crea la cookie de autenticación
-                System.Web.Security.FormsAuthentication.SetAuthCookie(dominio, false);
+                FormsAuthentication.SetAuthCookie(dominio, false);
 
                 // Redirige a la página predeterminada después del login
                 Response.Redirect("Default.aspx");
-
             }
             else
             {

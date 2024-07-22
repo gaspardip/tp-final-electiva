@@ -27,7 +27,7 @@ namespace Desktop.Forms
                 Dock = DockStyle.Fill,
                 DataFetcher = () => _sistema.Vehiculos,
                 DisplayProperties = new List<string>
-                    { "ID", "Dominio", "Propietario" }
+                    { "ID", "Dominio" }
             };
 
             _filterableDataGridView.AddDeleteButton(OnDeleteClicked);

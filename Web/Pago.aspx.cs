@@ -1,7 +1,6 @@
-﻿using Business.Models;
-using System;
-using System.Web;
+﻿using System;
 using System.Web.UI;
+using Business.Models;
 
 namespace Web
 {
@@ -9,24 +8,28 @@ namespace Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                var vehiculo = (Vehiculo)Session["Vehiculo"];
+            if (IsPostBack) return;
 
-                cargarInfraccionesPagas(vehiculo);
+            var sistema = (SistemaInfracciones)Session["Sistema"];
+            var vehiculo = (Vehiculo)Session["Vehiculo"];
+
+            if (sistema == null || vehiculo == null)
+            {
+                Response.Redirect("Login.aspx");
             }
+
+            CargarInfraccionesPagas(vehiculo);
         }
 
-        protected void cargarInfraccionesPagas(Vehiculo vehiculo)
+        protected void CargarInfraccionesPagas(Vehiculo vehiculo)
         {
             var sistema = (SistemaInfracciones)Session["Sistema"];
 
             ListBoxInfraccionesPagas.DataSource = sistema.GetRegistrosPagos(vehiculo.Dominio);
-            ListBoxInfraccionesPagas.DataTextField = "Dominio";
+            ListBoxInfraccionesPagas.DataTextField = "Descripcion";
             ListBoxInfraccionesPagas.DataValueField = "ID";
 
             ListBoxInfraccionesPagas.DataBind();
         }
-
     }
 }

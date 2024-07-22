@@ -4,24 +4,21 @@ namespace Business.Models
 {
     public class RegistroInfraccionGrave : RegistroInfraccion
     {
-        public RegistroInfraccionGrave(int id, Infraccion infraccion, string vehiculo, DateTime fs, DateTime fv) : base(
+        public RegistroInfraccionGrave(int id, Infraccion infraccion, string vehiculo, DateTime fs, DateTime fv,
+            bool pagada) : base(
             id,
-            infraccion, vehiculo, fs, fv)
+            infraccion, vehiculo, fs, fv, pagada)
         {
         }
 
-        public override decimal CalcularDescuento(DateTime fechaPago, decimal i)
+        public override decimal Descuento
         {
-            var fechaVencimiento = FechaVencimiento;
-            var diasRestantes = fechaVencimiento - fechaPago;
-
-            if (diasRestantes.TotalDays >= 25)
+            get
             {
-                var descuento = i * 0.2m;
-                return i - descuento;
-            }
+                var diasRestantes = (FechaVencimiento - DateTime.Now).Days;
 
-            return 0;
+                return diasRestantes >= 25 ? 0.2m : 0;
+            }
         }
     }
 }

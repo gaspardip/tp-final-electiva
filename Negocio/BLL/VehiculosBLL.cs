@@ -20,11 +20,6 @@ namespace Business.BLL
             _vehiculos.Delete(id);
         }
 
-        public void Pagar(RegistroInfraccion registro)
-        {
-            _vehiculos.Pagar(registro.ID, registro.VehiculoDominio);
-        }
-
         public Vehiculo GetVehiculo(string dominio)
         {
             var dataTable = _vehiculos.GetVehiculo(dominio);
@@ -41,16 +36,8 @@ namespace Business.BLL
         {
             return new Vehiculo(
                 row.Field<int>("ID"),
-                row.Field<string>("Dominio"),
+                row.Field<string>("Dominio")
             );
-        }
-
-        public List<Vehiculo> GetVehiculosSinPagar()
-        {
-            var dataTable = _vehiculos.GetVehiculosSinPagar();
-
-            return (from DataRow row in dataTable.Rows
-                    select MapVehiculo(row)).ToList();
         }
 
         public List<Vehiculo> GetAllVehiculos()

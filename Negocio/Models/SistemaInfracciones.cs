@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using ZXing;
+using System.Text;
 using Business.BLL;
 using Business.Enums;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using SkiaSharp;
+using ZXing;
+using ZXing.Common;
+using ZXing.QrCode;
 using ZXing.SkiaSharp.Rendering;
-
 
 namespace Business.Models
 {
@@ -20,20 +22,19 @@ namespace Business.Models
 
         public List<Infraccion> Infracciones => _infracciones.GetAllInfracciones();
         public List<Vehiculo> Vehiculos => _vehiculos.GetAllVehiculos();
-        public List<Vehiculo> VehiculosSinPagar => _vehiculos.GetVehiculosSinPagar();
         public List<RegistroInfraccion> Registros => _registros.GetAllRegistros();
 
-        public List<RegistroInfraccion> GetRegistrosPendientes(string vehiculoDom)
+        public List<RegistroInfraccion> GetRegistrosPendientes(string dominio)
         {
-            return _registros.GetRegistrosPendientes(vehiculoDom);
+            return _registros.GetRegistrosPendientes(dominio);
         }
 
-        public List<RegistroInfraccion> GetRegistrosPagos(string vehiculoDom)
+        public List<RegistroInfraccion> GetRegistrosPagos(string dominio)
         {
-            return _registros.GetRegistrosPagos(vehiculoDom);
+            return _registros.GetRegistrosPagos(dominio);
         }
 
-        public void CrearInfraccion(int codigo, string descripcion, decimal importe, TipoInfraccion tipo)
+        public void CrearInfraccion(string descripcion, decimal importe, TipoInfraccion tipo)
         {
             _infracciones.Agregar(new Infraccion(descripcion, importe, tipo));
         }
@@ -58,9 +59,9 @@ namespace Business.Models
             _vehiculos.Eliminar(id);
         }
 
-        public void RegistrarPagoVehiculo(RegistroInfraccion registro)
+        public void PagarRegistroInfraccion(int id)
         {
-            _vehiculos.Pagar(registro);
+            _registros.Pagar(id);
         }
 
         public void CrearRegistro(Infraccion infraccion, string dominio, DateTime fs)
@@ -78,71 +79,74 @@ namespace Business.Models
             _registros.Eliminar(id);
         }
 
-        public Vehiculo BuscarVehiculo (string dominio)
+        public Vehiculo BuscarVehiculo(string dominio)
         {
             return _vehiculos.GetVehiculo(dominio);
         }
 
         public void DescargarPDF(int id, MemoryStream memoryStream)
         {
-            RegistroInfraccion registro = Registros.Find(i => i.ID == id);
+            var registro = Registros.Find(i => i.ID == id);
 
             if (registro == null)
             {
                 throw new Exception("No se encontró el registro de infracción.");
             }
 
-            var importe = _registros.ObtenerImporte(id);
-            decimal monto = registro.CalcularDescuento(DateTime.Now, importe);
-            string vencimiento = registro.FechaVencimiento.ToString("dd/MM/yyyy");
-            string dominio = registro.VehiculoDominio;
+            var vencimiento = registro.FechaVencimiento.ToString("dd/MM/yyyy");
+            var dominio = registro.VehiculoDominio;
 
-            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-            PdfDocument doc = new PdfDocument();
-            PdfPage page = doc.AddPage();
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            var doc = new PdfDocument();
+            var page = doc.AddPage();
 
-            XGraphics gfx = XGraphics.FromPdfPage(page);
-            XFont font = new XFont("Arial", 20, XFontStyleEx.Bold);
-            XFont smallFont = new XFont("Arial", 12);
-            XPen linePen = new XPen(XColors.Black, 1);
+            var gfx = XGraphics.FromPdfPage(page);
+            var font = new XFont("Arial", 20, XFontStyleEx.Bold);
+            var smallFont = new XFont("Arial", 12);
+            var linePen = new XPen(XColors.Black, 1);
 
             double marginTop = 40;
-            double lineHeight = 30;
-            double qrCodeSize = 100;
-            double barcodeWidth = 200;
-            double barcodeHeight = 50;
+            const double lineHeight = 30;
+            const double qrCodeSize = 100;
+            const double barcodeWidth = 200;
+            const double barcodeHeight = 50;
 
             // Dibujar los datos de la orden
-            gfx.DrawString("ORDEN DE PAGO INFRACCIÓN DE TRÁNSITO", font, XBrushes.Black, new XRect(0, marginTop, page.Width, lineHeight), XStringFormats.TopCenter);
+            gfx.DrawString("ORDEN DE PAGO INFRACCIÓN DE TRÁNSITO", font, XBrushes.Black,
+                new XRect(0, marginTop, page.Width, lineHeight), XStringFormats.TopCenter);
             marginTop += lineHeight + 20;
 
-            gfx.DrawString("Orden de pago: " + id, smallFont, XBrushes.Black, new XRect(40, marginTop, page.Width - 80, lineHeight), XStringFormats.TopLeft);
+            gfx.DrawString("Orden de pago: " + id, smallFont, XBrushes.Black,
+                new XRect(40, marginTop, page.Width - 80, lineHeight), XStringFormats.TopLeft);
             marginTop += lineHeight;
 
-            gfx.DrawString("Dominio: " + dominio, smallFont, XBrushes.Black, new XRect(40, marginTop, page.Width - 80, lineHeight), XStringFormats.TopLeft);
+            gfx.DrawString("Dominio: " + dominio, smallFont, XBrushes.Black,
+                new XRect(40, marginTop, page.Width - 80, lineHeight), XStringFormats.TopLeft);
             marginTop += lineHeight;
 
-            gfx.DrawString("Monto a pagar: $" + monto.ToString("N2"), smallFont, XBrushes.Black, new XRect(40, marginTop, page.Width - 80, lineHeight), XStringFormats.TopLeft);
+            gfx.DrawString("Monto a pagar: $" + registro.ImporteFinal.ToString("N2"), smallFont, XBrushes.Black,
+                new XRect(40, marginTop, page.Width - 80, lineHeight), XStringFormats.TopLeft);
             marginTop += lineHeight;
 
-            gfx.DrawString("Vencimiento: " + vencimiento, smallFont, XBrushes.Black, new XRect(40, marginTop, page.Width - 80, lineHeight), XStringFormats.TopLeft);
+            gfx.DrawString("Vencimiento: " + vencimiento, smallFont, XBrushes.Black,
+                new XRect(40, marginTop, page.Width - 80, lineHeight), XStringFormats.TopLeft);
             marginTop += lineHeight;
 
             // Separador
             marginTop += 10;
             gfx.DrawLine(linePen, 40, marginTop, page.Width - 40, marginTop);
-            marginTop += 20;
 
-            // Agregar imagen
-            string imagePath = "C:\\Users\\Admin\\Downloads\\b241f605f14ef4ff22fb92806041df2b.jpg";
-            XImage backgroundImage = XImage.FromFile(imagePath);
-            gfx.DrawImage(backgroundImage, 40, marginTop, page.Width - 80, page.Height - marginTop - qrCodeSize - 40);
+            //marginTop += 20;
+            // //Agregar imagen
+            //var imagePath = "C:\\Users\\Admin\\Downloads\\b241f605f14ef4ff22fb92806041df2b.jpg";
+            //var backgroundImage = XImage.FromFile(imagePath);
+            //gfx.DrawImage(backgroundImage, 40, marginTop, page.Width - 80, page.Height - marginTop - qrCodeSize - 40);
 
             // Generar y dibujar código QR
             var qrWriter = new BarcodeWriter<SKBitmap>
             {
-                Format = ZXing.BarcodeFormat.QR_CODE,
-                Options = new ZXing.QrCode.QrCodeEncodingOptions
+                Format = BarcodeFormat.QR_CODE,
+                Options = new QrCodeEncodingOptions
                 {
                     Width = (int)qrCodeSize,
                     Height = (int)qrCodeSize
@@ -154,7 +158,7 @@ namespace Business.Models
             {
                 qrBitmap.Encode(qrStream, SKEncodedImageFormat.Png, 100);
                 qrStream.Seek(0, SeekOrigin.Begin);
-                XImage qrImage = XImage.FromStream(qrStream);
+                var qrImage = XImage.FromStream(qrStream);
                 double qrImageY = page.Height - qrCodeSize - 20;
                 gfx.DrawImage(qrImage, 40, qrImageY);
             }
@@ -162,8 +166,8 @@ namespace Business.Models
             // Generar y dibujar código de barras
             var barcodeWriter = new BarcodeWriter<SKBitmap>
             {
-                Format = ZXing.BarcodeFormat.CODE_128,
-                Options = new ZXing.Common.EncodingOptions
+                Format = BarcodeFormat.CODE_128,
+                Options = new EncodingOptions
                 {
                     Width = (int)barcodeWidth,
                     Height = (int)barcodeHeight
@@ -175,7 +179,7 @@ namespace Business.Models
             {
                 barcodeBitmap.Encode(barcodeStream, SKEncodedImageFormat.Png, 100);
                 barcodeStream.Seek(0, SeekOrigin.Begin);
-                XImage barImage = XImage.FromStream(barcodeStream);
+                var barImage = XImage.FromStream(barcodeStream);
                 double barcodeImageX = page.Width - barcodeWidth - 40;
                 double barcodeImageY = page.Height - barcodeHeight - 20;
                 gfx.DrawImage(barImage, barcodeImageX, barcodeImageY);

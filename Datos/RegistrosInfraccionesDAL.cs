@@ -13,7 +13,7 @@ namespace DAL
         public DataTable GetAllRegistros()
         {
             const string query =
-                "SELECT RI.ID, RI.InfraccionID, RI.VehiculoDominio, FechaSuceso, FechaVencimiento, I.Descripcion, I.Importe, I.Tipo FROM RegistrosInfracciones RI " +
+                "SELECT RI.*, I.Descripcion, I.Importe, I.Tipo FROM RegistrosInfracciones RI " +
                 "INNER JOIN Infracciones I ON RI.InfraccionID = I.ID";
 
             return ExecuteQuery(query);
@@ -22,7 +22,7 @@ namespace DAL
         public DataTable GetRegistrosPendientes(string dominio)
         {
             const string query =
-                "SELECT RI.ID, RI.InfraccionID, RI.VehiculoDominio, FechaSuceso, FechaVencimiento, I.Descripcion, I.Importe, I.Tipo FROM RegistrosInfracciones RI " +
+                "SELECT RI.*, I.Descripcion, I.Importe, I.Tipo FROM RegistrosInfracciones RI " +
                 "INNER JOIN Infracciones I ON RI.InfraccionID = I.ID " +
                 "WHERE RI.VehiculoDominio = ? AND RI.FechaVencimiento >= Date() AND RI.Pagada = FALSE";
 
@@ -31,9 +31,16 @@ namespace DAL
                 new OleDbParameter("VehiculoDominio", dominio));
         }
 
-        public DataTable GetRegistrosPagos(string vehiculoDom)
+        public DataTable GetRegistrosPagos(string dominio)
         {
-            return ExecuteQuery("SELECT * FROM RegistrosInfracciones WHERE VehiculoDominio = ? AND Pagada = TRUE", new OleDbParameter("VehiculoDominio", vehiculoDom));
+            const string query =
+                "SELECT RI.*, I.Descripcion, I.Importe, I.Tipo FROM RegistrosInfracciones RI " +
+                "INNER JOIN Infracciones I ON RI.InfraccionID = I.ID " +
+                "WHERE VehiculoDominio = ? AND Pagada = TRUE";
+
+            return ExecuteQuery(
+                query,
+                new OleDbParameter("VehiculoDominio", dominio));
         }
 
         public void Insert(int idInfraccion, string dominio, DateTime fs)
@@ -54,6 +61,15 @@ namespace DAL
                     new OleDbParameter("FechaVencimiento", OleDbType.Date) { Value = fs.AddDays(30) }
                 },
                 "ID = ?", new OleDbParameter("ID", idRegistro));
+        }
+
+        public void Pay(int id)
+        {
+            Update(new[]
+                {
+                    new OleDbParameter("Pagada", true)
+                },
+                "ID = ?", new OleDbParameter("ID", id));
         }
 
         public void Delete(int id)

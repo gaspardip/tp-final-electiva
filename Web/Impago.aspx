@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Impago.aspx.cs" Inherits="Web.Impago" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-
     <div class="jumbotron">
         <div class="row">
             <div class="col-xs-4">
@@ -9,7 +8,7 @@
                 <asp:ListBox
                     ID="ListBoxInfraccionesImpagas"
                     Rows="20"
-                    Width="450px"
+                    Width="100%"
                     SelectionMode="Single"
                     runat="server"></asp:ListBox>
                 <br />
@@ -28,5 +27,4 @@
             </div>
         </div>
     </div>
-
 </asp:Content>

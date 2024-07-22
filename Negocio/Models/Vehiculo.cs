@@ -10,7 +10,7 @@ namespace Business.Models
             Registros = new List<RegistroInfraccion>();
         }
 
-        public Vehiculo(int id, string dominio, string propietario) : this(dominio)
+        public Vehiculo(int id, string dominio) : this(dominio)
         {
             ID = id;
         }

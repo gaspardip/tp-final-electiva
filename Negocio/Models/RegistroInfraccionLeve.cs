@@ -4,29 +4,32 @@ namespace Business.Models
 {
     public class RegistroInfraccionLeve : RegistroInfraccion
     {
-        public RegistroInfraccionLeve(int id, Infraccion infraccion, string vehiculo, DateTime fs, DateTime fv) : base(
+        public RegistroInfraccionLeve(int id, Infraccion infraccion, string vehiculo, DateTime fs, DateTime fv,
+            bool pagada) : base(
             id,
-            infraccion, vehiculo, fs, fv)
+            infraccion, vehiculo, fs, fv, pagada)
         {
         }
 
-        public override decimal CalcularDescuento(DateTime fechaPago, decimal i)
+        public override decimal Descuento
         {
-            var diferenciaDias = FechaVencimiento - fechaPago;
-            var diasRestantes = diferenciaDias.Days;
-
-            decimal descuento = 0;
-
-            if (diasRestantes >= 20)
+            get
             {
-                descuento = i * 0.25m;
-            }
-            else if (diasRestantes >= 10)
-            {
-                descuento = i * 0.15m;
-            }
+                var diasRestantes = (FechaVencimiento - DateTime.Now).Days;
 
-            return i - descuento;
+                decimal descuento = 0;
+
+                if (diasRestantes >= 20)
+                {
+                    descuento = 0.25m;
+                }
+                else if (diasRestantes >= 10)
+                {
+                    descuento = 0.15m;
+                }
+
+                return descuento;
+            }
         }
     }
 }

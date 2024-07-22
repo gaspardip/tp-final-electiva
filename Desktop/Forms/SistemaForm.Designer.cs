@@ -37,7 +37,6 @@
             this.vehiculosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verListadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registrarPagoInfracciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -95,8 +94,7 @@
             // 
             this.vehiculosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.verListadoToolStripMenuItem,
-            this.nuevoToolStripMenuItem,
-            this.registrarPagoInfracciónToolStripMenuItem});
+            this.nuevoToolStripMenuItem});
             this.vehiculosToolStripMenuItem.Name = "vehiculosToolStripMenuItem";
             this.vehiculosToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.vehiculosToolStripMenuItem.Text = "Vehiculos";
@@ -104,23 +102,16 @@
             // verListadoToolStripMenuItem
             // 
             this.verListadoToolStripMenuItem.Name = "verListadoToolStripMenuItem";
-            this.verListadoToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.verListadoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.verListadoToolStripMenuItem.Text = "Ver listado";
             this.verListadoToolStripMenuItem.Click += new System.EventHandler(this.verListadoToolStripMenuItem_Click);
             // 
             // nuevoToolStripMenuItem
             // 
             this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
-            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.nuevoToolStripMenuItem.Text = "Nuevo";
             this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
-            // 
-            // registrarPagoInfracciónToolStripMenuItem
-            // 
-            this.registrarPagoInfracciónToolStripMenuItem.Name = "registrarPagoInfracciónToolStripMenuItem";
-            this.registrarPagoInfracciónToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
-            this.registrarPagoInfracciónToolStripMenuItem.Text = "Registrar pago infracción";
-            this.registrarPagoInfracciónToolStripMenuItem.Click += new System.EventHandler(this.registrarPagoInfracciónToolStripMenuItem_Click);
             // 
             // SistemaForm
             // 
@@ -149,7 +140,6 @@
         private System.Windows.Forms.ToolStripMenuItem nuevoTipoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem verListadoToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem nuevaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem registrarPagoInfracciónToolStripMenuItem;
     }
 }
 

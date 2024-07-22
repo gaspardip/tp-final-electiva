@@ -27,6 +27,11 @@ namespace Business.BLL
             _registros.Delete(id);
         }
 
+        public void Pagar(int id)
+        {
+            _registros.Pay(id);
+        }
+
         public static RegistroInfraccion MapRegistroInfraccion(DataRow row)
         {
             var tipo = (TipoInfraccion)row.Field<int>("Tipo");
@@ -43,13 +48,15 @@ namespace Business.BLL
                     infraccion,
                     row.Field<string>("VehiculoDominio"),
                     row.Field<DateTime>("FechaSuceso"),
-                    row.Field<DateTime>("FechaVencimiento"))
+                    row.Field<DateTime>("FechaVencimiento"),
+                    row.Field<bool>("Pagada"))
                 : (RegistroInfraccion)new RegistroInfraccionGrave(
                     row.Field<int>("ID"),
                     infraccion,
                     row.Field<string>("VehiculoDominio"),
                     row.Field<DateTime>("FechaSuceso"),
-                    row.Field<DateTime>("FechaVencimiento"));
+                    row.Field<DateTime>("FechaVencimiento"),
+                    row.Field<bool>("Pagada"));
         }
 
         public List<RegistroInfraccion> GetAllRegistros()
@@ -60,20 +67,20 @@ namespace Business.BLL
                     select MapRegistroInfraccion(row)).ToList();
         }
 
-        public List<RegistroInfraccion> GetRegistrosPendientes(string vehiculoDom)
+        public List<RegistroInfraccion> GetRegistrosPendientes(string dominio)
         {
-            var dataTable = _registros.GetRegistrosPendientes(vehiculoDom);
+            var dataTable = _registros.GetRegistrosPendientes(dominio);
 
             return (from DataRow row in dataTable.Rows
                     select MapRegistroInfraccion(row)).ToList();
         }
 
-        public List<RegistroInfraccion> GetRegistrosPagos(string vehiculoDom)
+        public List<RegistroInfraccion> GetRegistrosPagos(string dominio)
         {
-            var dataTable = _registros.GetRegistrosPagos(vehiculoDom);
+            var dataTable = _registros.GetRegistrosPagos(dominio);
 
             return (from DataRow row in dataTable.Rows
-                                       select MapRegistroInfraccion(row)).ToList();
+                    select MapRegistroInfraccion(row)).ToList();
         }
     }
 }
